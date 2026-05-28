@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA & Estratégia de Produto — Victor Araujo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F6F7F6; --surface: #FFFFFF;
+      --ink: #101D1E; --ink-2: #435455; --ink-3: #879899;
+      --teal: #47868A; --teal-lt: #C4D5D6; --teal-xlt: #EAF2F3;
+      --green: #47868A; --green-lt: #C4D5D6; --green-dk: #2D595D; --green-xlt: #EAF2F3;
+      --slate: #47868A; --slate-xlt: #EDF0FA;
+      --amber: #9E7A5A; --amber-lt: #DFCAB5; --amber-dk: #6A4A2A; --amber-xlt: #F2ECE4;
+      --sand: #F4EDE0; --sand-lt: #FAF6EF;
+      --border: #DCE5E6; --border-lt: #E9F0F1; --border-2: #BEC9CA; --r: 10px;
+      --accent:    #47868A;
+      --accent-lt: #C4D5D6;
+      --accent-xlt:#EAF2F3;
+      --accent-dk: #2D595D;
+    }
+    #progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, #9E7A5A, #47868A); z-index: 500; width: 0%; transition: width .1s linear; pointer-events: none; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    p { color: var(--ink-2); line-height: 1.82; }
+    a { color: var(--amber); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; border-radius: 10px; display: block; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+    .narrow { max-width: 760px; }
+
+    /* NAV */
+    nav { position: fixed; inset: 0 0 auto; z-index: 200; background: rgba(246,247,246,.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); transition: box-shadow .25s; }
+    nav.sc { box-shadow: 0 2px 20px rgba(0,0,0,.06); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: .9rem; font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+    .nav-logo em { color: var(--green); font-style: normal; }
+    .nav-back { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; font-weight: 600; color: var(--amber); text-decoration: none; padding: 7px 0; }
+    .nav-back:hover { text-decoration: underline; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: .82rem; font-weight: 500; color: var(--ink-3); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* CASE HERO */
+    .case-hero { padding: 120px 0 72px; border-bottom: 1px solid var(--border); }
+    .case-eyebrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .ey-co { font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+    .ey-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border-2); }
+    .ey-cat { font-size: .78rem; color: var(--ink-3); }
+    .case-hero h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(2.6rem, 5vw, 4.2rem); font-weight: 400; line-height: 1.06; letter-spacing: -.02em; color: var(--ink); margin-bottom: 22px; max-width: 820px; }
+    .case-hero-lead { font-size: 1.08rem; color: var(--ink-2); max-width: 640px; line-height: 1.76; margin-bottom: 40px; }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 40px; }
+    .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: .72rem; font-weight: 600; background: var(--amber-lt); color: var(--amber-dk); }
+    .tag-b { background: var(--teal-lt); color: var(--teal); }
+    .tag-g { background: var(--surface); color: var(--ink-3); border: 1px solid var(--border); }
+    .meta-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-top: 36px; border-top: 1px solid var(--border); }
+    .meta-item {}
+    .meta-label { font-size: .67rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px; }
+    .meta-val { font-size: .9rem; color: var(--ink); font-weight: 600; }
+
+    /* PROCESS STRIP */
+    .process-strip { padding: 48px 0; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .process-strip .strip-label { font-size: .67rem; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: var(--amber); margin-bottom: 20px; }
+    .process-steps { display: flex; gap: 0; overflow-x: auto; }
+    .ps { display: flex; flex-direction: column; flex: 1; padding: 0 20px 0 0; position: relative; min-width: 130px; }
+    .ps + .ps { padding-left: 20px; }
+    .ps + .ps::before { content: '→'; position: absolute; left: -4px; top: 14px; color: var(--border-2); font-size: .9rem; }
+    .ps-num { font-size: .62rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin-bottom: 5px; }
+    .ps-name { font-size: .86rem; font-weight: 700; color: var(--ink); }
+    .ps-detail { font-size: .74rem; color: var(--ink-3); margin-top: 3px; line-height: 1.4; }
+
+    /* CONTENT */
+    .case-section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .case-section:last-of-type { border-bottom: none; }
+    .sec-label { font-size: .7rem; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+    .case-section h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 400; letter-spacing: -.01em; color: var(--ink); margin-bottom: 20px; line-height: 1.12; }
+    .case-section h3 { font-size: 1.15rem; font-weight: 700; color: var(--amber-dk); margin: 32px 0 12px; }
+    .case-section p { font-size: .97rem; margin-bottom: 14px; }
+    .case-section ul { margin: 12px 0 16px 20px; color: var(--ink-2); font-size: .95rem; line-height: 1.85; }
+    .case-section ul li { margin-bottom: 6px; }
+
+    /* OUTCOMES STRIP */
+    .outcomes-strip { background: var(--amber-xlt); border-bottom: 1px solid rgba(158,122,90,.15); padding: 28px 0; }
+    .os-items { display: flex; align-items: center; }
+    .os-item { flex: 1; text-align: center; padding: 0 20px; }
+    .os-val { display: block; font-size: 1.9rem; font-weight: 800; color: var(--amber); letter-spacing: -.04em; line-height: 1; }
+    .os-lbl { display: block; font-size: .73rem; color: var(--ink-3); margin-top: 5px; line-height: 1.35; }
+    .os-sep { width: 1px; height: 34px; background: rgba(158,122,90,.2); flex-shrink: 0; }
+
+    /* CALLOUT BOXES */
+    .highlight { background: var(--amber-lt); border-left: 3px solid var(--amber); border-radius: 0 10px 10px 0; padding: 20px 24px; margin: 24px 0; }
+    .highlight p { color: var(--amber-dk); font-weight: 500; margin: 0; font-size: .95rem; }
+    .callout { background: var(--green-lt); border-left: 3px solid var(--green); border-radius: 0 10px 10px 0; padding: 20px 24px; margin: 24px 0; }
+    .callout p { color: var(--green-dk); font-weight: 500; margin: 0; font-size: .95rem; }
+    .insight-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin: 28px 0; }
+    .insight-box h4 { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+    .insight-box p { font-size: .93rem; margin: 0; }
+
+    /* SKILLS GRID */
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 32px 0; }
+    .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 18px; }
+    .skill-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+    .skill-card h4 { font-size: .84rem; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .skill-card p { font-size: .78rem; color: var(--ink-3); line-height: 1.55; margin: 0; }
+
+    /* METRICS */
+    .metrics-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0; }
+    .metric-box { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--amber); border-radius: 12px; padding: 22px 18px; text-align: center; }
+    .metric-box.green { border-top-color: var(--green); }
+    .metric-val { display: block; font-size: 2.2rem; font-weight: 800; color: var(--amber); letter-spacing: -.035em; line-height: 1; }
+    .metric-box.green .metric-val { color: var(--green-dk); }
+    .metric-lbl { font-size: .78rem; color: var(--ink-3); margin-top: 8px; line-height: 1.4; }
+
+    /* LLM DECISION TABLE */
+    .decision-table { width: 100%; border-collapse: collapse; margin: 28px 0; font-size: .88rem; }
+    .decision-table th { text-align: left; padding: 10px 14px; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); border-bottom: 2px solid var(--border); }
+    .decision-table td { padding: 12px 14px; border-bottom: 1px solid var(--border-lt); color: var(--ink-2); vertical-align: top; }
+    .decision-table tr:last-child td { border-bottom: none; }
+    .decision-table td:first-child { font-weight: 700; color: var(--ink); white-space: nowrap; }
+    .decision-table tr:hover td { background: var(--amber-xlt); }
+
+    /* SCC PROJECT */
+    .project-showcase { background: var(--ink); border-radius: 16px; padding: 44px 48px; margin: 40px 0; }
+    .project-showcase .sec-label { color: rgba(255,255,255,.4); }
+    .project-showcase h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: 1.7rem; font-weight: 400; color: #F2F1EE; margin-bottom: 16px; letter-spacing: -.01em; line-height: 1.15; }
+    .project-showcase p { color: rgba(242,241,238,.7); font-size: .97rem; margin-bottom: 14px; }
+    .project-showcase ul { margin: 12px 0 16px 20px; color: rgba(242,241,238,.65); font-size: .93rem; line-height: 1.85; }
+    .project-showcase ul li { margin-bottom: 6px; }
+    .scc-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; }
+    .scc-tag { padding: 4px 12px; border-radius: 20px; font-size: .72rem; font-weight: 600; background: rgba(255,255,255,.08); color: rgba(255,255,255,.6); border: 1px solid rgba(255,255,255,.12); }
+    .scc-tag.hi { background: rgba(158,122,90,.25); color: #C49A74; border-color: rgba(158,122,90,.3); }
+
+    /* REFLECTION */
+    .reflection-box { background: var(--ink); border-radius: 16px; padding: 44px 48px; margin: 56px 0; }
+    .reflection-box .sec-label { color: rgba(255,255,255,.4); }
+    .reflection-box h3 { font-size: 1.4rem; font-weight: 700; color: #F2F1EE; margin-bottom: 16px; }
+    .reflection-box p { color: rgba(242,241,238,.7); font-size: .97rem; }
+
+    /* FOOTER */
+    footer { background: var(--ink); text-align: center; padding: 28px; font-size: .77rem; color: rgba(255,255,255,.28); }
+    footer a { color: rgba(255,255,255,.45); }
+
+    /* FADE */
+    .fi { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .fi.on { opacity: 1; transform: none; }
+    .fi-d1 { transition-delay: .1s; }
+    .fi-d2 { transition-delay: .2s; }
+
+    @media (max-width: 760px) {
+      .meta-bar { grid-template-columns: 1fr 1fr; }
+      .metrics-row, .skills-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .reflection-box, .project-showcase { padding: 28px 24px; }
+      .os-items { flex-wrap: wrap; gap: 20px; }
+      .os-sep { display: none; }
+      .os-item { min-width: 40%; }
+    }
+  </style>
+</head>
+<body>
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Victor <em>Araujo</em></a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">← Todos os trabalhos</a></li>
+    </ul>
+    <a href="index.html" class="nav-back">← Voltar ao portfolio</a>
+  </div>
+</nav>
+
+<!-- CASE HERO -->
+<section class="case-hero">
+  <div class="container fi">
+    <div class="case-eyebrow">
+      <span class="ey-co">IA · Estratégia · Pesquisa</span>
+      <span class="ey-dot"></span>
+      <span class="ey-cat">Formação Tera · MBA em Inteligência Artificial</span>
+      <span class="ey-dot"></span>
+      <span class="ey-cat">2024–Atual</span>
+    </div>
+    <h1>IA no fluxo de design: do problema ao protótipo — com rigor, sem atalhos</h1>
+    <p class="case-hero-lead">Formação estruturada em IA pela Tera (MBA), aplicada no dia a dia: arquitetura de soluções com LLMs, estratégia de produto com camadas de modelo, CoE, governança e entrega de um sistema real em Python com vibe-coding para o Sicoob Coopera.</p>
+    <div class="tags">
+      <span class="tag">LLM Architecture</span>
+      <span class="tag">Prompt Engineering</span>
+      <span class="tag">CoE em IA</span>
+      <span class="tag-b">RAG · Agentes</span>
+      <span class="tag-b">Responsible AI</span>
+      <span class="tag-g">Tera MBA</span>
+      <span class="tag-g">2024–Atual</span>
+    </div>
+    <div class="meta-bar">
+      <div class="meta-item">
+        <div class="meta-label">Formação</div>
+        <div class="meta-val">MBA em IA — Tera</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Período</div>
+        <div class="meta-val">2024 – Atual</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Projeto prático</div>
+        <div class="meta-val">SCC — Sicoob Coopera</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Stack</div>
+        <div class="meta-val">Python · Claude · RAG · Agentes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES STRIP -->
+<div class="outcomes-strip">
+  <div class="container">
+    <div class="os-items">
+      <div class="os-item">
+        <span class="os-val">4E</span>
+        <span class="os-lbl">framework estruturado:<br>Exploração → Escala</span>
+      </div>
+      <div class="os-sep"></div>
+      <div class="os-item">
+        <span class="os-val">CoE</span>
+        <span class="os-lbl">Centro de Excelência em IA<br>implementado e operacional</span>
+      </div>
+      <div class="os-sep"></div>
+      <div class="os-item">
+        <span class="os-val">SCC</span>
+        <span class="os-lbl">sistema real entregue em Python<br>com arquitetura de solução própria</span>
+      </div>
+      <div class="os-sep"></div>
+      <div class="os-item">
+        <span class="os-val">Zero</span>
+        <span class="os-lbl">sem alucinações arquiteturais:<br>fine-tuning só quando RAG não resolve</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS STRIP — Framework 4E -->
+<div class="process-strip">
+  <div class="container">
+    <div class="strip-label">Framework de atuação</div>
+    <div class="process-steps">
+      <div class="ps">
+        <div class="ps-num">E1</div>
+        <div class="ps-name">Exploração</div>
+        <div class="ps-detail">Discovery · casos de uso · matriz impacto × prontidão</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num">E2</div>
+        <div class="ps-name">Experimentação</div>
+        <div class="ps-detail">Prompt engineering · sandbox · PoC com métricas</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num">E3</div>
+        <div class="ps-name">Execução</div>
+        <div class="ps-detail">Arquitetura LLM · integração · liderança de squad</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num">E4</div>
+        <div class="ps-name">Escala</div>
+        <div class="ps-detail">CoE · gestão de mudanças · Trust Layer · ROI</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORMAÇÃO + CONTEXTO -->
+<section class="case-section">
+  <div class="container">
+    <div class="narrow fi">
+      <div class="sec-label">O contexto</div>
+      <h2>IA como prática — não como hype</h2>
+      <p>O MBA em Inteligência Artificial pela Tera foi escolhido não por ser o mais popular, mas por ser o mais orientado à aplicação prática: cada módulo é ancorado em entrega, não em apresentação de conceito. O programa exige que o profissional saia com capacidade de liderar projetos de IA do zero ao produto — da identificação do caso de uso ao CoE que sustenta a operação em escala.</p>
+      <p>Para um designer de produto em um setor onde cada decisão tem impacto regulatório — sistema financeiro cooperativo —, isso significou aprender a construir o vocabulário compartilhado entre design, tecnologia e negócio necessário para fazer IA funcionar de verdade.</p>
+    </div>
+
+    <div class="skills-grid fi fi-d1">
+      <div class="skill-card">
+        <div class="skill-card-icon">🎯</div>
+        <h4>Estratégia & Priorização</h4>
+        <p>Matriz impacto × prontidão tecnológica para seleção de casos de uso. Discovery orientado a IA com métricas de produto.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">🏗️</div>
+        <h4>Arquitetura de Soluções</h4>
+        <p>Decisão entre fine-tuning, RAG, agentes ou prompt engineering puro. Ambientes sandbox para experimentação segura.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">🤝</div>
+        <h4>CoE em IA</h4>
+        <p>Implementação de Centro de Excelência: governança, capacitação de equipes, gestão de mudanças e operação contínua.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">🔒</div>
+        <h4>Responsible AI</h4>
+        <p>Governança, risco, viés e explicabilidade. Trust Layer aplicado ao ciclo de produto em ambiente regulado.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">📊</div>
+        <h4>Business & ROI</h4>
+        <p>Modelos de monetização, unit economics e go-to-market para produtos com camadas de modelo. Métricas de negócio em projetos de IA.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">🧪</div>
+        <h4>Prompt Engineering</h4>
+        <p>Desenvolvimento sistemático de prompts, avaliação de output, frameworks NN/g, SUS e UEQ para medir maturidade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARQUITETURA DE LLMs -->
+<section class="case-section" style="background:var(--surface)">
+  <div class="container">
+    <div class="narrow fi">
+      <div class="sec-label">Arquitetura de soluções</div>
+      <h2>Quando usar fine-tuning, RAG, agentes ou prompt engineering puro</h2>
+      <p>Uma das competências mais valiosas que a formação desenvolveu foi a capacidade de tomar a decisão arquitetural correta — antes de escrever uma linha de código. A maioria dos projetos de IA falha não por tecnologia, mas por escolha errada de abordagem: fine-tuning onde bastava RAG, agentes onde bastava prompt, complexidade onde cabia simplicidade.</p>
+    </div>
+
+    <div class="fi">
+      <table class="decision-table">
+        <thead>
+          <tr>
+            <th>Abordagem</th>
+            <th>Quando usar</th>
+            <th>Cuidados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Prompt Engineering</td>
+            <td>Comportamento geral, tarefas bem definidas, iteração rápida sem custo de treino</td>
+            <td>Frágil a mudanças de modelo; documentar versões de prompt</td>
+          </tr>
+          <tr>
+            <td>RAG</td>
+            <td>Base de conhecimento proprietária, conteúdo que muda com frequência, necessidade de citações verificáveis</td>
+            <td>Qualidade do retrieval determina qualidade do output; indexação bem feita é crítica</td>
+          </tr>
+          <tr>
+            <td>Fine-tuning</td>
+            <td>Tom e formato muito específicos, volume alto de inferência com custo controlado, comportamento impossível via prompt</td>
+            <td>Custo de treino e manutenção; risco de catastrophic forgetting</td>
+          </tr>
+          <tr>
+            <td>Agentes</td>
+            <td>Tarefas multi-etapa com ferramentas externas, orquestração de sistemas, decisões dinâmicas baseadas em estado</td>
+            <td>Latência, custo e observabilidade; loops e falhas silenciosas são o maior risco</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="narrow fi">
+      <div class="highlight">
+        <p>A pergunta certa antes de qualquer projeto de IA não é "qual modelo usar" — é "qual é o menor nível de complexidade que resolve o problema?" Começar por prompt engineering e escalar somente quando necessário é a disciplina que separa entregas sustentáveis de protótipos que não chegam à produção.</p>
+      </div>
+
+      <h3>Liderança técnica em squads com IA</h3>
+      <p>A formação também desenvolveu competência em gestão de times multidisciplinares em ciclos de entrega com IA: como comunicar trade-offs técnicos para stakeholders de negócio, como estruturar o backlog quando parte da lógica está em um modelo não-determinístico, e como definir critérios de aceitação para comportamentos que variam por natureza.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETO SCC -->
+<section class="case-section">
+  <div class="container">
+    <div class="narrow fi">
+      <div class="sec-label">Projeto prático</div>
+      <h2>SCC — Sistema de Contabilização Coopera</h2>
+      <p>O conhecimento da formação encontrou seu primeiro teste real no SCC: um sistema de contabilização desenvolvido para o Sicoob Coopera. O projeto exigiu os três papéis simultaneamente — arquiteto de solução, designer de interface e consultor técnico de IA para os desenvolvedores.</p>
+    </div>
+
+    <div class="project-showcase fi fi-d1">
+      <div class="sec-label">SCC · Sicoob Coopera · Python</div>
+      <h3>Sistema de Contabilização Coopera — arquitetura, design e consultoria em IA</h3>
+      <p>O SCC foi construído com vibe-coding em Python — uma abordagem que usa LLMs como par de programação em ciclos rápidos de geração, revisão e refinamento de código. Minha atuação cobriu três frentes:</p>
+      <ul>
+        <li><strong>Arquitetura de solução:</strong> definição das camadas do sistema, fluxo de dados, decisões de stack e integração com os sistemas existentes do Coopera</li>
+        <li><strong>Design do front-end:</strong> interface do sistema, padrões de componente, fluxos de navegação e consistência com o design system interno</li>
+        <li><strong>Consultoria técnica em IA:</strong> orientação aos desenvolvedores sobre uso de LLMs no processo — prompts de geração de código, revisão assistida, estratégias de debugging com modelo e boas práticas de vibe-coding em contexto de produto real</li>
+      </ul>
+      <p>O projeto funcionou como laboratório aplicado: validou na prática os frameworks da formação — da decisão arquitetural ao gerenciamento das expectativas da equipe sobre o que IA pode e não pode fazer num ciclo de entrega.</p>
+      <div class="scc-tags">
+        <span class="scc-tag hi">Python</span>
+        <span class="scc-tag hi">Vibe-coding</span>
+        <span class="scc-tag hi">LLM-assisted dev</span>
+        <span class="scc-tag">Arquitetura de Solução</span>
+        <span class="scc-tag">UX/UI Design</span>
+        <span class="scc-tag">Consultoria Técnica</span>
+        <span class="scc-tag">Sicoob Coopera</span>
+      </div>
+    </div>
+
+    <div class="narrow fi">
+      <div class="insight-box">
+        <h4>O que o SCC ensinou sobre vibe-coding em produção</h4>
+        <p>Vibe-coding funciona muito melhor quando o arquiteto sabe exatamente o que quer — e consegue articular isso em linguagem que o modelo entende. A consultoria técnica que ofereci aos desenvolvedores foi, em grande parte, sobre como formular melhor o problema antes de enviar o prompt. A qualidade do output do modelo é função direta da clareza do input humano.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESPONSIBLE AI + CoE -->
+<section class="case-section" style="background:var(--surface)">
+  <div class="container">
+    <div class="narrow fi">
+      <div class="sec-label">Governança & Escala</div>
+      <h2>Responsible AI e Centro de Excelência — porque IA sem governança é passivo, não ativo</h2>
+      <p>Em setores regulados como o sistema financeiro cooperativo, Responsible AI não é diferencial competitivo — é pré-requisito. A formação estruturou um vocabulário preciso para as dimensões de risco que qualquer produto com IA precisa endereçar: viés nos dados de treino, explicabilidade das decisões para fins regulatórios, Trust Layer entre o modelo e o usuário final.</p>
+
+      <h3>Centro de Excelência em IA (CoE)</h3>
+      <p>A implementação de um CoE é o mecanismo que transforma iniciativas pontuais em capacidade organizacional. O framework aprendido na Tera cobre as quatro dimensões que um CoE precisa sustentar:</p>
+      <ul>
+        <li><strong>Governança:</strong> quem decide o que pode e não pode ser feito com IA, como os riscos são registrados e revisados</li>
+        <li><strong>Capacitação:</strong> como o conhecimento se distribui da equipe especializada para os times de produto — sem criar dependência ou criar um gargalo</li>
+        <li><strong>Experimentação segura:</strong> ambientes sandbox que permitem PoCs sem risco para a produção, com critérios claros de graduação para escala</li>
+        <li><strong>Métricas:</strong> como medir o sucesso de iniciativas de IA em linguagem de negócio — não só precisão do modelo, mas impacto em indicadores reais</li>
+      </ul>
+
+      <div class="callout">
+        <p>Gestão de mudanças é a variável mais subestimada em projetos de IA. A tecnologia raramente é o gargalo — o gargalo é a capacidade da organização de mudar como trabalha. Um CoE bem estruturado endereça isso antes da implantação, não como reação à resistência.</p>
+      </div>
+    </div>
+
+    <div class="metrics-row fi fi-d1">
+      <div class="metric-box">
+        <span class="metric-val">4E</span>
+        <span class="metric-lbl">framework Exploração → Experimentação → Execução → Escala</span>
+      </div>
+      <div class="metric-box green">
+        <span class="metric-val">4</span>
+        <span class="metric-lbl">pilares do CoE: governança, capacitação, experimentação e métricas</span>
+      </div>
+      <div class="metric-box">
+        <span class="metric-val">4</span>
+        <span class="metric-lbl">abordagens LLM dominadas: prompt, RAG, fine-tuning e agentes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section style="padding: 0 0 80px; background: var(--bg)">
+  <div class="container">
+    <div class="reflection-box fi">
+      <div class="sec-label">Reflexão</div>
+      <h3>O que a formação mudou na forma como abordo produto</h3>
+      <p>O maior impacto da formação não foi técnico — foi estratégico. Aprender a usar a matriz impacto × prontidão tecnológica mudou o momento em que IA entra na conversa de produto: agora entra no discovery, não na implementação. Isso significa que a discussão sobre "usar IA aqui" acontece quando ainda há espaço para escolher a abordagem certa, não quando a pressão de prazo já tomou a decisão.</p>
+      <p style="margin-top:12px">O SCC foi o projeto que tornou isso concreto. Trabalhar como arquiteto, designer e consultor técnico ao mesmo tempo exigiu que eu usasse o framework 4E como referência real, não como abstração de slide. O que levei da formação foi a capacidade de fazer a pergunta certa antes — e isso muda tudo o que vem depois.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Victor Araujo · <a href="index.html">← Voltar ao portfolio</a> · <a href="mailto:victorhugoalvesaraujo@gmail.com">victorhugoalvesaraujo@gmail.com</a></p>
+</footer>
+
+<script>
+  const progressBar = document.getElementById('progress');
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = `${Math.min(100, (scrollTop / docHeight) * 100)}%`;
+    nav.classList.toggle('sc', scrollTop > 20);
+  }, { passive: true });
+  document.querySelectorAll('.fi').forEach(el => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>

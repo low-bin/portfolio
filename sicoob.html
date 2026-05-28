@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sicoob Coopera — Victor Araujo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F6F7F6; --surface: #FFFFFF; --ink: #101D1E; --ink-2: #435455; --ink-3: #879899;
+      --teal: #47868A; --teal-lt: #C4D5D6; --teal-xlt: #EAF2F3;
+      --green: #47868A; --green-lt: #C4D5D6; --green-dk: #2D595D; --green-xlt: #EAF2F3;
+      --slate: #47868A; --slate-xlt: #EAF2F3;
+      --amber: #9E7A5A; --amber-xlt: #F2ECE4;
+      --sand: #ECE7DF; --sand-lt: #F4F0EB; --border: #DCE5E6; --border-lt: #E9F0F1; --border-2: #BEC9CA;
+      --accent: #47868A; --accent-lt: #C4D5D6; --accent-xlt: #EAF2F3; --accent-dk: #2D595D;
+    }
+    #progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(to right, #2D595D, #47868A); z-index: 500; width: 0%; transition: width .1s linear; pointer-events: none; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    p { color: var(--ink-2); line-height: 1.82; }
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; border-radius: 10px; display: block; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+    .narrow { max-width: 760px; }
+
+    /* NAV */
+    nav { position: fixed; inset: 0 0 auto; z-index: 200; background: rgba(246,247,246,.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); transition: box-shadow .25s; }
+    nav.sc { box-shadow: 0 2px 20px rgba(0,0,0,.06); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: .9rem; font-weight: 700; color: var(--ink); text-decoration: none; letter-spacing: -.01em; }
+    .nav-logo em { color: var(--green); font-style: normal; }
+    .nav-back { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; font-weight: 600; color: var(--teal); text-decoration: none; }
+    .nav-back:hover { text-decoration: underline; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: .82rem; font-weight: 500; color: var(--ink-3); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    .case-hero { padding: 120px 0 72px; border-bottom: 1px solid var(--border); }
+    .case-eyebrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+    .ey-co { font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+    .ey-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border-2); }
+    .ey-cat { font-size: .78rem; color: var(--ink-3); }
+    .case-hero h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(2.6rem, 5vw, 4.2rem); font-weight: 400; line-height: 1.06; letter-spacing: -.02em; color: var(--ink); margin-bottom: 22px; max-width: 860px; }
+    .case-hero-lead { font-size: 1.08rem; color: var(--ink-2); max-width: 640px; line-height: 1.76; margin-bottom: 40px; }
+    .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 40px; }
+    .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: .72rem; font-weight: 600; background: var(--green-lt); color: var(--green-dk); }
+    .tag-b { background: var(--teal-lt); color: var(--teal); }
+    .tag-g { background: var(--surface); color: var(--ink-3); border: 1px solid var(--border); }
+    .meta-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; padding-top: 36px; border-top: 1px solid var(--border); }
+    .meta-label { font-size: .67rem; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px; }
+    .meta-val { font-size: .9rem; color: var(--ink); font-weight: 600; }
+
+    /* SECTION */
+    .case-section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .sec-label { font-size: .7rem; font-weight: 700; letter-spacing: .10em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+    .case-section h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.7rem, 3vw, 2.3rem); font-weight: 400; letter-spacing: -.01em; color: var(--ink); margin-bottom: 20px; line-height: 1.12; }
+    .case-section h3 { font-size: 1.15rem; font-weight: 700; color: var(--teal); margin: 36px 0 12px; }
+    .case-section p { font-size: .97rem; margin-bottom: 14px; }
+
+    /* CASE CARDS (the 3 featured) */
+    .case-cards { display: flex; flex-direction: column; gap: 0; }
+    .cc { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 32px; background: var(--surface); transition: box-shadow .25s; }
+    .cc:hover { box-shadow: 0 6px 24px rgba(0,0,0,.09); }
+    .cc-vis { padding: 40px 36px; display: flex; align-items: center; position: relative; }
+    .cc-vis.v1 { background: var(--teal-lt); }
+    .cc-vis.v2 { background: #E2EDF5; }
+    .cc-vis.v3 { background: var(--green-lt); }
+    .cc-num { position: absolute; top: 16px; right: 20px; font-size: 4rem; font-weight: 800; color: rgba(71,134,138,.07); line-height: 1; user-select: none; }
+    .cc-body { padding: 40px; display: flex; flex-direction: column; justify-content: flex-start; }
+    /* viz styles */
+    .viz { background: rgba(255,255,255,.72); border: 1px solid rgba(0,0,0,.09); border-radius: 12px; padding: 20px; width: 100%; }
+    .viz-title { font-size: .66rem; text-transform: uppercase; letter-spacing: .1em; color: var(--teal); font-weight: 700; margin-bottom: 14px; }
+    .viz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .viz-cell { background: rgba(255,255,255,.8); border-radius: 7px; padding: 12px; font-size: .75rem; color: var(--ink-2); border: 1px solid rgba(0,0,0,.07); }
+    .viz-cell strong { display: block; font-size: 1.05rem; font-weight: 700; color: var(--teal); margin-bottom: 2px; }
+    .viz-row-hdr { font-size: .65rem; color: var(--ink-3); font-weight: 600; text-transform: uppercase; margin-bottom: 8px; display: grid; grid-template-columns: 90px 1fr 1fr; gap: 6px; }
+    .viz-row { display: grid; grid-template-columns: 90px 1fr 1fr; gap: 6px; align-items: center; background: rgba(255,255,255,.7); border-radius: 6px; padding: 7px 6px; margin-bottom: 4px; border: 1px solid rgba(0,0,0,.06); }
+    .viz-lbl { font-size: .74rem; color: var(--ink-2); }
+    .viz-good { font-size: .78rem; font-weight: 700; color: #2F7B14; }
+    .viz-bad { font-size: .78rem; font-weight: 700; color: #C42D2D; }
+    .viz-warn { margin-top: 10px; padding: 8px 10px; background: rgba(215,155,0,.09); border-radius: 6px; font-size: .72rem; color: #7A5800; border: 1px solid rgba(215,155,0,.25); }
+    .nps-seg { border-radius: 7px; padding: 11px 14px; margin-bottom: 7px; }
+    .nps-seg:last-child { margin-bottom: 0; }
+    .nps-seg strong { display: block; font-size: .8rem; font-weight: 700; margin-bottom: 3px; }
+    .nps-seg span { font-size: .72rem; color: var(--ink-2); }
+    .nps-det { background: rgba(210,50,50,.07); border: 1px solid rgba(210,50,50,.18); }
+    .nps-det strong { color: #B02828; }
+    .nps-neu { background: rgba(200,145,0,.07); border: 1px solid rgba(200,145,0,.18); }
+    .nps-neu strong { color: #865E00; }
+    .nps-pro { background: rgba(55,135,55,.07); border: 1px solid rgba(55,135,55,.18); }
+    .nps-pro strong { color: #286628; }
+    /* case body elements */
+    .pflow { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; margin-bottom: 18px; }
+    .pf-step { font-size: .68rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; background: var(--bg); color: var(--ink-3); border: 1px solid var(--border); white-space: nowrap; }
+    .pf-step.done { background: var(--green-lt); color: var(--green-dk); border-color: rgba(92,150,38,.25); }
+    .pf-arr { font-size: .65rem; color: var(--ink-3); }
+    .cc-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+    .cc-body h3 { font-size: 1.35rem; color: var(--ink); margin-bottom: 4px; margin-top: 0; }
+    .cc-client { font-size: .82rem; color: var(--ink-3); margin-bottom: 18px; }
+    .case-lbl { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 700; color: var(--ink-3); margin: 12px 0 4px; }
+    .dec-list { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
+    .dec { display: flex; gap: 12px; padding: 11px 13px; background: var(--bg); border-radius: 8px; border-left: 2px solid var(--green); }
+    .dec-n { font-size: .68rem; font-weight: 800; color: var(--green); width: 18px; flex-shrink: 0; padding-top: 3px; }
+    .dec strong { font-size: .82rem; color: var(--ink); display: block; margin-bottom: 2px; }
+    .dec p { font-size: .78rem; margin: 0; }
+    .constr { background: rgba(215,155,0,.05); border: 1px solid rgba(215,155,0,.2); border-radius: 8px; padding: 11px 14px; margin: 10px 0; }
+    .constr-title { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: #7A5800; margin-bottom: 6px; }
+    .constr ul { margin: 0 0 0 16px; font-size: .8rem; line-height: 1.6; color: var(--ink-2); }
+    .reflect { background: var(--teal-lt); border-radius: 8px; padding: 11px 14px; margin-top: 10px; border-left: 2px solid var(--teal); }
+    .reflect-title { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: var(--teal); margin-bottom: 5px; }
+    .reflect p { font-size: .8rem; font-style: italic; margin: 0; }
+    .metrics-sm { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
+    .m-box { background: var(--bg); border-radius: 8px; padding: 12px; text-align: center; }
+    .m-val { display: block; font-size: 1.2rem; font-weight: 800; color: var(--teal); }
+    .m-lbl { font-size: .72rem; color: var(--ink-3); line-height: 1.3; }
+    .case-text { font-size: .86rem; }
+
+    /* PROJECTS GRID */
+    .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .proj-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 24px; transition: box-shadow .2s, transform .2s; }
+    .proj-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.08); transform: translateY(-2px); }
+    .proj-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--teal-lt); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 14px; }
+    .proj-card h4 { color: var(--ink); margin-bottom: 7px; font-size: .95rem; }
+    .proj-card p { font-size: .83rem; margin-bottom: 14px; }
+    .proj-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+
+    /* STRATEGY */
+    .strat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .strat-card { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--teal); border-radius: 14px; padding: 32px; }
+    .strat-card.green { border-top-color: var(--green); }
+    .strat-card h3 { color: var(--teal); font-size: 1rem; margin-bottom: 8px; margin-top: 0; }
+    .strat-card.green h3 { color: var(--green-dk); }
+    .strat-card > p { font-size: .88rem; margin-bottom: 20px; }
+    .strat-list { list-style: none; }
+    .strat-list li { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: .85rem; color: var(--ink-2); line-height: 1.45; }
+    .strat-list li:last-child { border-bottom: none; }
+    .strat-list li::before { content: '→'; color: var(--teal); flex-shrink: 0; font-weight: 700; }
+    .strat-card.green .strat-list li::before { color: var(--green-dk); }
+
+    /* OVERALL METRICS */
+    .impact-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 40px 0; }
+    .impact-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 22px 18px; text-align: center; }
+    .impact-val { display: block; font-size: 2rem; font-weight: 800; color: var(--teal); letter-spacing: -.03em; line-height: 1; }
+    .impact-lbl { font-size: .76rem; color: var(--ink-3); margin-top: 8px; line-height: 1.4; }
+
+    /* FOOTER */
+    footer { background: var(--ink); text-align: center; padding: 28px; font-size: .77rem; color: rgba(255,255,255,.28); }
+    footer a { color: rgba(255,255,255,.45); }
+
+    .fi { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .fi.on { opacity: 1; transform: none; }
+    .fi-d1 { transition-delay: .1s; }
+    .fi-d2 { transition-delay: .2s; }
+
+    @media (max-width: 900px) {
+      .cc { grid-template-columns: 1fr; }
+      .strat-grid { grid-template-columns: 1fr; }
+      .impact-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .proj-grid { grid-template-columns: 1fr 1fr; }
+      .meta-bar { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .metrics-sm { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .proj-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Victor <em>Araujo</em></a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">← Todos os trabalhos</a></li>
+    </ul>
+    <a href="index.html" class="nav-back">← Voltar ao portfolio</a>
+  </div>
+</nav>
+
+<!-- CASE HERO -->
+<section class="case-hero">
+  <div class="container fi">
+    <div class="case-eyebrow">
+      <span class="ey-co">Sicoob Coopera</span>
+      <span class="ey-dot"></span>
+      <span class="ey-cat">Produto Financeiro · UX Design</span>
+      <span class="ey-dot"></span>
+      <span class="ey-cat">Set 2023 – Atual</span>
+    </div>
+    <h1>20+ produtos em produção. Maturidade UX nível 2 → 4. O trabalho de quem constrói capacidade, não só telas.</h1>
+    <p class="case-hero-lead">No Sicoob Coopera, opero nos dois fronts: entregando produtos com rigor metodológico e construindo a capacidade organizacional que vai além da minha presença. Diagnóstico NN/g nível 2, roadmap estruturado para nível 4–5, 20+ projetos em produção.</p>
+    <div class="tags">
+      <span class="tag">UX Strategy</span>
+      <span class="tag">Arquitetura de Informação</span>
+      <span class="tag-b">Design Systems</span>
+      <span class="tag-b">Data-Driven Design</span>
+      <span class="tag-g">Fintech · Cooperativismo</span>
+      <span class="tag-g">2023–Atual</span>
+    </div>
+    <div class="meta-bar">
+      <div class="meta-item">
+        <div class="meta-label">Meu papel</div>
+        <div class="meta-val">UX Designer Sênior</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Empresa</div>
+        <div class="meta-val">Sicoob Coopera</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Período</div>
+        <div class="meta-val">Set 2023 – Atual</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Entregas</div>
+        <div class="meta-val">20+ projetos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXT -->
+<section class="case-section">
+  <div class="container">
+    <div class="narrow fi">
+      <div class="sec-label">O contexto</div>
+      <h2>O desafio de projetar para 7 milhões de cooperados com perfis radicalmente distintos</h2>
+      <p>O Sicoob é o maior sistema cooperativo financeiro do Brasil, com mais de 7 milhões de cooperados em todo o país. A Coopera é uma das principais cooperativas do sistema, atendendo cooperados com perfis radicalmente distintos: desde agricultores em zonas rurais com baixa literacia digital até empresários urbanos que usam o app diariamente para múltiplas transações.</p>
+      <p>Esse contexto cria um desafio de design que vai além de "fazer a interface mais bonita": cada decisão de arquitetura de informação, cada fluxo de produto e cada padrão de componente precisa funcionar para um espectro amplíssimo de usuários — sem sacrificar a sofisticação dos que sabem o que querem nem excluir os que precisam de mais orientação.</p>
+      <p>Cheguei ao Sicoob com um diagnóstico claro: o time de design operava no nível 2 da escala de maturidade de UX da Nielsen Norman Group — design reativo, focado em execução, sem processo estruturado de discovery ou mensuração de impacto. O objetivo que propus era elevar para o nível 4–5 dentro de 18 meses.</p>
+    </div>
+
+    <div class="impact-row fi">
+      <div class="impact-box">
+        <span class="impact-val">20+</span>
+        <span class="impact-lbl">produtos projetados e entregues em produção</span>
+      </div>
+      <div class="impact-box">
+        <span class="impact-val">2→4</span>
+        <span class="impact-lbl">evolução na escala de maturidade UX (NN/g)</span>
+      </div>
+      <div class="impact-box">
+        <span class="impact-val">−38%</span>
+        <span class="impact-lbl">tempo de resposta no NPS redesenhado</span>
+      </div>
+      <div class="impact-box">
+        <span class="impact-val">+40%</span>
+        <span class="impact-lbl">taxa de conclusão do NPS após branching</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 FEATURED CASES -->
+<section class="case-section" style="background: var(--surface)">
+  <div class="container">
+    <div class="fi" style="margin-bottom:48px">
+      <div class="sec-label">Casos em profundidade</div>
+      <h2>Três projetos. Decisões documentadas. Resultados mensuráveis.</h2>
+      <p style="max-width:560px">Do diagnóstico à entrega — com raciocínio explícito sobre cada escolha de design e dados para validar o impacto.</p>
+    </div>
+
+    <div class="case-cards">
+
+      <!-- CASE 01: Nova Home -->
+      <div class="cc fi">
+        <div class="cc-vis v1">
+          <span class="cc-num">01</span>
+          <div class="viz">
+            <div class="viz-title">Diagnóstico · IA em 5 Dimensões</div>
+            <div class="viz-grid">
+              <div class="viz-cell"><strong>5</strong>Recursos redesenhados</div>
+              <div class="viz-cell"><strong>7</strong>Headers benchmarkados</div>
+              <div class="viz-cell"><strong>GWT</strong>Framework de hipótese</div>
+              <div class="viz-cell"><strong>KPI</strong>Encontrabilidade</div>
+            </div>
+            <div style="margin-top:12px;font-size:.71rem;color:var(--ink-3);line-height:1.65">Navegabilidade · Encontrabilidade · Rotulação · Busca · Organização</div>
+          </div>
+        </div>
+        <div class="cc-body">
+          <div class="pflow">
+            <span class="pf-step done">Diagnóstico</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Benchmark</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Hipótese GWT</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Prototipação</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Teste</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Entrega</span>
+          </div>
+          <div class="cc-meta">
+            <span class="tag">Arquitetura de Informação</span>
+            <span class="tag">Pesquisa</span>
+            <span class="tag-g tag">Mobile · Web · 2024</span>
+          </div>
+          <h3>Nova Home Coopera</h3>
+          <p class="cc-client">Sicoob Coopera · UX Designer líder · Equipe: 1 PM, 2 devs, 1 pesquisador</p>
+          <p class="case-lbl">O problema</p>
+          <p class="case-text">Cooperados chegavam à homepage mas não encontravam os produtos financeiros que precisavam. A arquitetura de informação desatualizada criava um gargalo invisível — o problema não era o produto, era o caminho até ele.</p>
+          <div class="constr">
+            <div class="constr-title">Trabalhamos dentro de</div>
+            <ul>
+              <li>Sistema legado com restrições de componentes reutilizáveis</li>
+              <li>Base de cooperados heterogênea (alta variação em literacia digital)</li>
+              <li>Alinhamento obrigatório com design system nacional Sicoob</li>
+            </ul>
+          </div>
+          <p class="case-lbl">Decisões-chave com raciocínio</p>
+          <div class="dec-list">
+            <div class="dec">
+              <span class="dec-n">01</span>
+              <div><strong>GWT como framework de hipótese, não H1/H2</strong><p>Força a definição do KPI de sucesso antes da prototipação — evita que o time defina "sucesso" retroativamente para justificar o que foi entregue.</p></div>
+            </div>
+            <div class="dec">
+              <span class="dec-n">02</span>
+              <div><strong>Prioridade para busca, não para o menu</strong><p>O diagnóstico revelou que 5 dos 7 problemas de encontrabilidade estavam na jornada pós-menu. Melhorar o menu resolveria 28% do problema; melhorar a busca, 71%.</p></div>
+            </div>
+            <div class="dec">
+              <span class="dec-n">03</span>
+              <div><strong>Sicoob Sans como decisão estratégica, não estética</strong><p>Unificação entre digital e impresso — eliminou o font-stack inconsistente e reduziu carga cognitiva em telas de alta densidade de informação.</p></div>
+            </div>
+          </div>
+          <div class="reflect">
+            <div class="reflect-title">Se fosse fazer de novo</div>
+            <p>Faria o benchmark de headers antes do diagnóstico de IA, não depois — e incluiria cooperados de perfil rural na amostra (representam ~40% da base e têm padrões de uso distintos).</p>
+          </div>
+          <div class="metrics-sm">
+            <div class="m-box"><span class="m-val">5</span><span class="m-lbl">Recursos redesenhados</span></div>
+            <div class="m-box"><span class="m-val">GWT</span><span class="m-lbl">Hipótese validada com KPI</span></div>
+            <div class="m-box"><span class="m-val">+71%</span><span class="m-lbl">Cobertura via busca</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 02: NPS -->
+      <div class="cc fi fi-d1">
+        <div class="cc-body">
+          <div class="pflow">
+            <span class="pf-step done">Análise de abandono</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Segmentação</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Design trilhas</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Teste A/B</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Medição</span>
+          </div>
+          <div class="cc-meta">
+            <span class="tag">Pesquisa Quantitativa</span>
+            <span class="tag">Estratégia de Dados</span>
+            <span class="tag-g tag">2024</span>
+          </div>
+          <h3>NPS com Branching Inteligente</h3>
+          <p class="cc-client">Sicoob Coopera · UX Designer + time de dados · Pesquisa trimestral</p>
+          <p class="case-lbl">O problema</p>
+          <p class="case-text">Taxa de resposta ao NPS abaixo de 20%. Todos os cooperados respondiam o mesmo formulário de 10 perguntas independente da nota. Detratores, neutros e promotores têm motivações radicalmente distintas e recebiam exatamente as mesmas perguntas.</p>
+          <div class="constr">
+            <div class="constr-title">Trabalhamos dentro de</div>
+            <ul>
+              <li>Plataforma NPS existente com suporte limitado de branching</li>
+              <li>Necessidade de manter comparabilidade histórica do score NPS base</li>
+              <li>Aprovação do time de compliance para qualquer mudança</li>
+            </ul>
+          </div>
+          <p class="case-lbl">Decisões-chave com raciocínio</p>
+          <div class="dec-list">
+            <div class="dec">
+              <span class="dec-n">01</span>
+              <div><strong>3 trilhas, não 2 — neutros têm trilha própria</strong><p>Testes piloto mostraram que neutros (7–8) são o maior potencial de conversão para promotor. Agrupá-los com outros segmentos perde o sinal mais valioso.</p></div>
+            </div>
+            <div class="dec">
+              <span class="dec-n">02</span>
+              <div><strong>Máximo 4 perguntas para detratores, não 6</strong><p>Cada pergunta adicional reduzia a taxa de conclusão ~8% nesse segmento. O detrator precisa de rapidez — perguntas demais confirmam a percepção negativa.</p></div>
+            </div>
+            <div class="dec">
+              <span class="dec-n">03</span>
+              <div><strong>Branching no início, não no meio</strong><p>Evita a confusão de "por que as perguntas mudaram de repente". O cooperado sente que a pesquisa foi feita para ele desde o início.</p></div>
+            </div>
+          </div>
+          <div class="reflect">
+            <div class="reflect-title">Se fosse fazer de novo</div>
+            <p>Testaria um quarto segmento: cooperados nos primeiros 90 dias de conta. Seus detratores têm "expectativa não confirmada", não "experiência ruim" — é uma categoria de problema diferente.</p>
+          </div>
+          <div class="metrics-sm">
+            <div class="m-box"><span class="m-val">−38%</span><span class="m-lbl">Tempo de resposta</span></div>
+            <div class="m-box"><span class="m-val">+40%</span><span class="m-lbl">Taxa de conclusão</span></div>
+            <div class="m-box"><span class="m-val">4×</span><span class="m-lbl">Insights/respondente</span></div>
+          </div>
+        </div>
+        <div class="cc-vis v2">
+          <span class="cc-num">02</span>
+          <div class="viz">
+            <div class="viz-title">Branching por Segmento NPS</div>
+            <div class="nps-seg nps-det">
+              <strong>Detratores · 0–6</strong>
+              <span>4 perguntas · Problema específico + Solução desejada</span>
+            </div>
+            <div class="nps-seg nps-neu">
+              <strong>Neutros · 7–8</strong>
+              <span>3 perguntas · O que faltou para promover</span>
+            </div>
+            <div class="nps-seg nps-pro">
+              <strong>Promotores · 9–10</strong>
+              <span>3 perguntas · Motivador principal + Indicação</span>
+            </div>
+            <div style="margin-top:10px;font-size:.71rem;color:var(--ink-3)">Anterior: 10 perguntas iguais para todos · 2–3 insights/respondente</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 03: ShopCoopera -->
+      <div class="cc fi fi-d2">
+        <div class="cc-vis v3">
+          <span class="cc-num">03</span>
+          <div class="viz">
+            <div class="viz-title">Web Vitals — Mobile</div>
+            <div class="viz-row-hdr"><span></span><span>ShopCoopera</span><span>Credicitrus</span></div>
+            <div class="viz-row"><span class="viz-lbl">LCP Mobile</span><span class="viz-good">7.7 s</span><span class="viz-bad">47.7 s</span></div>
+            <div class="viz-row"><span class="viz-lbl">TBT Mobile</span><span class="viz-good">3,440 ms</span><span class="viz-bad">6,390 ms</span></div>
+            <div class="viz-row"><span class="viz-lbl">Speed Index</span><span class="viz-good">4.1 s</span><span class="viz-bad">29.7 s</span></div>
+            <div class="viz-warn">⚠ Apenas 5.6% dos usuários chegam ao fim da homepage</div>
+          </div>
+        </div>
+        <div class="cc-body">
+          <div class="pflow">
+            <span class="pf-step done">Escopo</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Web Vitals</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Heatmap</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Jornada comparativa</span><span class="pf-arr">→</span>
+            <span class="pf-step done">Recomendações</span>
+          </div>
+          <div class="cc-meta">
+            <span class="tag">Análise Competitiva</span>
+            <span class="tag">Web Vitals</span>
+            <span class="tag">Heatmap</span>
+            <span class="tag-g tag">2024</span>
+          </div>
+          <h3>ShopCoopera vs. Credicitrus</h3>
+          <p class="cc-client">Sicoob Coopera · E-commerce de recompensas · Análise competitiva end-to-end</p>
+          <p class="case-lbl">O problema</p>
+          <p class="case-text">O time de negócios questionava a posição competitiva do ShopCoopera frente à Credicitrus. Precisávamos de dados objetivos — não impressões — para priorizar investimentos e justificar decisões de produto com o board.</p>
+          <div class="constr">
+            <div class="constr-title">Trabalhamos dentro de</div>
+            <ul>
+              <li>Sem acesso ao backend ou analytics interno da Credicitrus</li>
+              <li>Dados de heatmap limitados a um período específico</li>
+              <li>Análise sem teste moderado com usuários reais para validar percepção</li>
+            </ul>
+          </div>
+          <p class="case-lbl">Decisões-chave com raciocínio</p>
+          <div class="dec-list">
+            <div class="dec">
+              <span class="dec-n">01</span>
+              <div><strong>Análise mobile-first, não desktop-first</strong><p>73% do tráfego do ShopCoopera vem de dispositivos móveis. A batalha competitiva acontece no mobile — analisar desktop primeiro seria otimizar o canal minoritário.</p></div>
+            </div>
+            <div class="dec">
+              <span class="dec-n">02</span>
+              <div><strong>PageSpeed + Hotjar combinados, não apenas heatmap</strong><p>Heatmap em site com LCP de 47.7s mede frustração, não intenção. Performance técnica é parte inseparável da experiência.</p></div>
+            </div>
+            <div class="dec">
+              <span class="dec-n">03</span>
+              <div><strong>CLS (Cumulative Layout Shift) incluído na análise</strong><p>A métrica mais subestimada em e-commerce. Layouts que pulam causam cliques acidentais no mobile — contribuem diretamente para abandono.</p></div>
+            </div>
+          </div>
+          <div class="reflect">
+            <div class="reflect-title">Se fosse fazer de novo</div>
+            <p>O insight de 5.6% de scroll deveria ter ido direto como input de redesign do fold antes de qualquer otimização de performance. Completaria com 5 sessões moderadas para validar se os problemas técnicos se traduzem em problemas percebidos.</p>
+          </div>
+          <div class="metrics-sm">
+            <div class="m-box"><span class="m-val">6×</span><span class="m-lbl">Vantagem em LCP mobile</span></div>
+            <div class="m-box"><span class="m-val">5.6%</span><span class="m-lbl">Users que chegam ao fim</span></div>
+            <div class="m-box"><span class="m-val">3 camadas</span><span class="m-lbl">Framework de análise</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OTHER PROJECTS -->
+<section class="case-section">
+  <div class="container">
+    <div class="fi" style="margin-bottom:36px">
+      <div class="sec-label">Demais entregas</div>
+      <h2>Outros projetos na Coopera</h2>
+      <p style="max-width:560px">20+ fluxos de produto financeiro projetados e entregues em dois anos — do onboarding ao investimento, do cartão virtual ao consórcio.</p>
+    </div>
+    <div class="proj-grid fi">
+      <div class="proj-card">
+        <div class="proj-icon">⭐</div>
+        <h4>Programa de Fidelidade</h4>
+        <p>Sistema completo de pontos: acúmulo por transações, catálogo de recompensas e dashboard de saldo.</p>
+        <div class="proj-tags"><span class="tag tag-b">Mobile</span><span class="tag tag-b">Web</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon">💚</div>
+        <h4>PIX com Pontos</h4>
+        <p>Integração de programa de recompensas ao fluxo PIX. Acúmulo automático em pagamentos instantâneos.</p>
+        <div class="proj-tags"><span class="tag tag-b">Mobile</span><span class="tag">Produto</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon">🎨</div>
+        <h4>Design System Coopera</h4>
+        <p>Biblioteca de componentes, tokens de design, tipografia Sicoob Sans e padrões de interação para toda a plataforma.</p>
+        <div class="proj-tags"><span class="tag tag-b">Design System</span><span class="tag tag-b">Tokens</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon">🎯</div>
+        <h4>Desconto PIX</h4>
+        <p>Desconto automático em pagamentos PIX em estabelecimentos conveniados. Incentivo ao canal digital.</p>
+        <div class="proj-tags"><span class="tag tag-b">Mobile</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon">📄</div>
+        <h4>Extrato / Statement</h4>
+        <p>Redesign do extrato com hierarquia por categoria, filtros avançados e exportação de comprovantes.</p>
+        <div class="proj-tags"><span class="tag tag-b">Mobile</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon">💳</div>
+        <h4>Cartão Virtual</h4>
+        <p>Geração e gestão de cartão virtual. Ativação, bloqueio temporário e controle de limite.</p>
+        <div class="proj-tags"><span class="tag tag-b">Mobile</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon">👤</div>
+        <h4>Cadastro / Onboarding</h4>
+        <p>Fluxo de integração de novos cooperados com validação progressiva e feedback contextual.</p>
+        <div class="proj-tags"><span class="tag tag-b">Mobile</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon">📈</div>
+        <h4>Investimentos</h4>
+        <p>Simulação de rendimentos, gestão de carteira e resgates com educação financeira integrada.</p>
+        <div class="proj-tags"><span class="tag tag-b">Mobile</span><span class="tag">Produto</span></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-icon">💰</div>
+        <h4>Crédito & Empréstimo</h4>
+        <p>Simulação, proposta e contratação com comparação de modalidades e análise do perfil em tempo real.</p>
+        <div class="proj-tags"><span class="tag tag-b">Mobile</span><span class="tag">Produto</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section class="case-section" style="background: var(--surface)">
+  <div class="container">
+    <div class="fi" style="margin-bottom:36px">
+      <div class="sec-label">Visão Estratégica</div>
+      <h2>Além do pixel</h2>
+      <p style="max-width:540px">Design como alavanca de maturidade organizacional e crescimento cooperativo — não como serviço de entrega de telas.</p>
+    </div>
+    <div class="strat-grid fi">
+      <div class="strat-card">
+        <h3>Design em Escala · 2023</h3>
+        <p>Diagnóstico de entrada e roadmap para elevar a maturidade de UX do time de nível 2 para 4–5 na escala Nielsen Norman.</p>
+        <ul class="strat-list">
+          <li>Diagnóstico de débito de UX mapeado por cadeia de valor</li>
+          <li>Estratégia Data-Driven Design: dados como insumo de priorização de backlog</li>
+          <li>Roadmap de maturidade por trimestre com OKRs de UX rastreáveis</li>
+          <li>Reposicionamento de design como investimento estratégico, não custo</li>
+          <li>Integração estruturada entre discovery e delivery no ciclo de produto</li>
+        </ul>
+      </div>
+      <div class="strat-card green fi fi-d1">
+        <h3>Nova Gerência de UX · 2026</h3>
+        <p>Proposta de estrutura organizacional para uma Gerência de Experiência do Cooperado com 3 disciplinas integradas.</p>
+        <ul class="strat-list">
+          <li>UX Engineering — escalabilidade técnica de componentes e interfaces</li>
+          <li>AI Product Design — produtos com inteligência embarcada e adaptativa</li>
+          <li>Data-Driven UX — métricas, experimentação e aprendizado contínuo</li>
+          <li>Estrutura bimodal: Eficiência (Frente A) + Inovação (Frente B)</li>
+          <li>KPI estratégico proposto: Share of Wallet do cooperado</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Victor Araujo · <a href="index.html">← Voltar ao portfolio</a> · <a href="mailto:victorhugoalvesaraujo@gmail.com">victorhugoalvesaraujo@gmail.com</a></p>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').classList.toggle('sc', window.scrollY > 8);
+  }, { passive: true });
+  const obs = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+</script>
+
+<script>
+  const progressBar = document.getElementById('progress');
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = `${Math.min(100, (scrollTop / docHeight) * 100)}%`;
+    nav.classList.toggle('sc', scrollTop > 20);
+  }, { passive: true });
+  document.querySelectorAll('.fi').forEach(el => {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Victor Araujo — UX Designer & Estrategista de Produto</title>
+  <meta name="description" content="Dez anos convertendo ambiguidade de produto em sistemas funcionais — fintech, govtech, edtech. UX Design sênior com foco em arquitetura de informação, maturidade NN/g e estratégia orientada por dados.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900;1,14..32,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #F6F7F6;
+      --surface:   #FFFFFF;
+      --ink:       #101D1E;
+      --ink-2:     #435455;
+      --ink-3:     #879899;
+      --accent:    #47868A;
+      --accent-lt: #C4D5D6;
+      --accent-xlt:#EAF2F3;
+      --accent-dk: #2D595D;
+      /* aliases — mantidos para compatibilidade com regras CSS existentes */
+      --teal:      #47868A;
+      --teal-lt:   #C4D5D6;
+      --teal-xlt:  #EAF2F3;
+      --green:     #47868A;
+      --green-lt:  #C4D5D6;
+      --green-dk:  #2D595D;
+      --green-xlt: #EAF2F3;
+      --slate:     #47868A;
+      --slate-xlt: #EAF2F3;
+      --amber:     #9E7A5A;
+      --amber-xlt: #F2ECE4;
+      --sand:      #ECE7DF;
+      --sand-lt:   #F4F0EB;
+      --border:    #DCE5E6;
+      --border-lt: #E9F0F1;
+      --border-2:  #BEC9CA;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg); color: var(--ink);
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+    p { color: var(--ink-2); line-height: 1.82; }
+    a { color: inherit; text-decoration: none; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 36px; }
+
+    /* ── SCROLL PROGRESS ── */
+    #progress {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: linear-gradient(to right, var(--accent-dk), var(--accent));
+      z-index: 500; width: 0%; transition: width .1s linear;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; inset: 0 0 auto; z-index: 200;
+      background: rgba(250,249,246,.92);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    nav.sc { border-color: var(--border); box-shadow: 0 2px 24px rgba(0,0,0,.05); }
+    .nav-inner { max-width: 1120px; margin: 0 auto; padding: 0 36px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-size: .88rem; font-weight: 700; color: var(--ink); letter-spacing: -.01em; display: flex; align-items: center; gap: 10px; }
+    .nav-logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: .82rem; font-weight: 500; color: var(--ink-3);
+      transition: color .2s; position: relative; padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1.5px; background: var(--teal);
+      transition: width .25s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-cta {
+      font-size: .82rem; font-weight: 600; color: var(--teal);
+      border: 1.5px solid rgba(71,134,138,.28); border-radius: 7px;
+      padding: 7px 18px; transition: all .22s;
+    }
+    .nav-cta:hover { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+    /* ── HERO ── */
+    #hero {
+      padding: 110px 0 90px;
+      border-bottom: 1px solid var(--border);
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      font-size: .68rem; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--ink-3);
+      margin-bottom: 22px;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 18px; height: 1.5px;
+      background: var(--green); flex-shrink: 0;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(3.8rem, 6.8vw, 7.2rem);
+      font-weight: 400; line-height: .94;
+      letter-spacing: -.04em; color: var(--ink);
+      font-optical-sizing: auto;
+      margin-bottom: 20px;
+    }
+    .hero-role {
+      display: flex; flex-direction: column; gap: 3px;
+      margin-bottom: 38px;
+    }
+    .hero-role-main {
+      font-size: .96rem; font-weight: 700; color: var(--ink); letter-spacing: -.01em;
+    }
+    .hero-role-detail {
+      font-size: .82rem; color: var(--ink-3); font-weight: 400;
+    }
+    .hero-specs { margin-bottom: 32px; }
+    .hero-spec {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(1.55rem, 2.5vw, 2.15rem);
+      font-weight: 400; line-height: 1.28;
+      color: var(--ink); letter-spacing: -.02em;
+    }
+    .hero-spec em { font-style: italic; color: var(--teal); }
+    .hero-intro {
+      font-size: .93rem; color: var(--ink-2);
+      line-height: 1.82; max-width: 430px;
+      margin-bottom: 40px;
+    }
+    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px; border-radius: 8px;
+      font-size: .875rem; font-weight: 600; cursor: pointer;
+      transition: all .22s cubic-bezier(.4,0,.2,1);
+      font-family: inherit; border: none; text-decoration: none;
+    }
+    .btn-dark { background: #599B9F; color: #fff; }
+    .btn-dark:hover { background: #47868A; transform: translateY(-1px); box-shadow: 0 8px 20px rgba(89,155,159,.35); }
+    .btn-outline { border: 1.5px solid var(--border); color: var(--ink-2); background: transparent; }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-xlt); }
+
+    /* Photo column */
+    .hero-col-photo {
+      display: flex; align-items: center; justify-content: center;
+    }
+    .photo-frame {
+      position: relative; width: 100%; max-width: 430px;
+    }
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      inset: 22px -14px -18px 22px;
+      background: var(--teal-xlt);
+      border-radius: 26px;
+      z-index: 0;
+    }
+    .hero-photo {
+      position: relative; z-index: 1;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover; object-position: center top;
+      border-radius: 20px;
+      display: block;
+    }
+    .photo-dot-a {
+      position: absolute; z-index: 2;
+      width: 13px; height: 13px; border-radius: 50%;
+      background: var(--green-lt);
+      top: -16px; right: 56px;
+    }
+    .photo-dot-b {
+      position: absolute; z-index: 2;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--amber-xlt);
+      border: 2px solid var(--amber);
+      bottom: 44px; right: -22px;
+    }
+    .photo-badge {
+      position: absolute; z-index: 2;
+      bottom: -18px; left: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+    .photo-badge-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #5DB830; box-shadow: 0 0 0 3px rgba(93,184,48,.2);
+      flex-shrink: 0; animation: pulse 2s infinite;
+    }
+    .photo-badge-text { font-size: .75rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+    .photo-badge-sub { font-size: .67rem; color: var(--ink-3); font-weight: 400; display: block; }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      display: inline-block; font-size: .68rem; font-weight: 700;
+      letter-spacing: .10em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+    }
+
+    /* ── WORK — light card grid ── */
+    #work { padding: 100px 0; background: var(--bg); border-top: 1px solid var(--border); }
+    .work-header { margin-bottom: 52px; }
+    .work-header h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400; letter-spacing: -.02em; color: var(--ink);
+      line-height: 1.1;
+    }
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .work-card {
+      background: var(--surface);
+      border-radius: 20px; overflow: hidden;
+      display: flex; flex-direction: column;
+      text-decoration: none; color: inherit;
+      border: 1px solid var(--border);
+      transition:
+        transform .38s cubic-bezier(.2,.8,.2,1),
+        box-shadow .38s cubic-bezier(.2,.8,.2,1),
+        border-color .38s,
+        background .38s;
+    }
+    .work-card:not([data-inactive]):hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 60px rgba(0,0,0,.1), 0 8px 22px rgba(0,0,0,.06);
+      border-color: transparent;
+    }
+    .work-card:not([data-inactive]):hover { background: rgba(71,134,138,.07); }
+
+    .wc-inner { padding: 28px 28px 0; flex: 1; display: flex; flex-direction: column; }
+    .wc-num { font-size: .66rem; font-weight: 700; letter-spacing: .12em; color: var(--ink-3); margin-bottom: 8px; }
+    .wc-meta { font-size: .75rem; font-weight: 500; color: var(--ink-3); margin-bottom: 14px; }
+    .wc-title {
+      font-size: 1.2rem; font-weight: 700; color: var(--ink);
+      line-height: 1.28; letter-spacing: -.02em; margin-bottom: 12px;
+    }
+    .wc-desc { font-size: .875rem; color: var(--ink-2); line-height: 1.72; flex: 1; margin-bottom: 20px; }
+    .wc-tags { display: flex; flex-wrap: wrap; gap: 5px; padding-bottom: 24px; }
+    .wc-tag {
+      font-size: .67rem; font-weight: 600; padding: 3px 10px;
+      border-radius: 20px; border: 1px solid var(--border);
+      background: var(--bg); color: var(--ink-3);
+    }
+    .wc-tag.hi { background: var(--green-lt); border-color: transparent; color: var(--green-dk); }
+    .wc-footer {
+      padding: 14px 28px; border-top: 1px solid var(--border-lt);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .wc-period { font-size: .73rem; color: var(--ink-3); }
+    .wc-arrow {
+      font-size: 1rem; color: var(--ink-3);
+      transition: transform .22s, color .22s;
+    }
+    .work-card:not([data-inactive]):hover .wc-arrow { transform: translate(3px,-3px); color: var(--teal); }
+
+    /* ── CLIENTS / CREDIBILITY ── */
+    #credibility { padding: 72px 0; border-top: 1px solid var(--border); background: var(--surface); }
+    .cred-inner { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
+    .cred-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+    .cred-logos { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+    .cred-name {
+      font-size: .9rem; font-weight: 700; letter-spacing: -.01em;
+      color: var(--ink-3); transition: color .2s;
+    }
+    .cred-name:hover { color: var(--teal); }
+
+    /* ── ABOUT ── */
+    #about { padding: 100px 0; background: var(--bg); border-top: 1px solid var(--border); }
+    .about-grid { display: grid; grid-template-columns: 260px 1fr; gap: 72px; align-items: start; }
+    .about-sidebar { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 14px; }
+    .aside-card {
+      border-radius: 18px; padding: 20px 22px;
+      border: none;
+      box-shadow: 0 2px 20px rgba(0,0,0,.05), 0 0 0 1px rgba(0,0,0,.04);
+    }
+    .aside-card.card-teal { background: var(--teal-xlt); }
+    .aside-card.card-sage { background: var(--green-xlt); }
+    .aside-title { font-size: .63rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px; }
+    .lang-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(0,0,0,.06); font-size: .84rem; color: var(--ink-2); }
+    .lang-row:last-child { border-bottom: none; }
+    .lang-lv { font-size: .76rem; font-weight: 600; color: var(--green-dk); }
+    .bg-item { font-size: .83rem; color: var(--ink-2); padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,.06); display: flex; align-items: center; gap: 8px; }
+    .bg-item:last-child { border-bottom: none; }
+    .about-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+    .about-content h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
+      font-weight: 400; letter-spacing: -.02em; color: var(--ink);
+      margin-bottom: 26px; line-height: 1.18;
+    }
+    .about-content h2 .h2-sectors {
+      display: block; margin-top: 10px;
+      font-size: .52em; font-family: 'Inter', sans-serif;
+      font-weight: 500; letter-spacing: .06em;
+      color: var(--ink-3); font-style: normal; line-height: 1;
+    }
+    .about-bio { font-size: .97rem; margin-bottom: 16px; line-height: 1.82; }
+    .spec-box {
+      margin-top: 34px; background: var(--teal-xlt);
+      border: none; border-radius: 18px; padding: 24px 26px;
+      box-shadow: 0 2px 20px rgba(71,134,138,.08), 0 0 0 1px rgba(71,134,138,.06);
+    }
+    .spec-title { font-size: .63rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
+    .spec-box p { font-size: .93rem; }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 36px; }
+    .skill-grp-title { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+    .pill-wrap { display: flex; gap: 6px; flex-wrap: wrap; }
+    .pill {
+      font-size: .74rem; color: var(--ink-2); background: var(--sand-lt);
+      border: none; border-radius: 20px; padding: 4px 12px;
+      box-shadow: 0 1px 5px rgba(0,0,0,.06);
+    }
+    .edu-list { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; padding-top: 36px; border-top: 1px solid var(--border); }
+    .edu-item { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: .88rem; }
+    .edu-name { color: var(--ink); font-weight: 600; }
+    .edu-year { color: var(--ink-3); font-size: .77rem; white-space: nowrap; }
+
+    /* ── CONTACT ── */
+    #contact { padding: 100px 0; background: var(--surface); border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .contact-label { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
+    #contact h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 400; letter-spacing: -.02em; color: var(--ink);
+      margin-bottom: 20px; line-height: 1.08;
+    }
+    #contact .contact-lead { font-size: .97rem; margin-bottom: 36px; max-width: 420px; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .c-link {
+      display: flex; align-items: center; gap: 16px; padding: 18px 22px;
+      border: 1.5px solid var(--border); border-radius: 14px;
+      font-size: .9rem; color: var(--ink-2);
+      transition: all .25s cubic-bezier(.4,0,.2,1);
+    }
+    .c-link:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-xlt); transform: translateX(4px); }
+    .c-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--bg); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .88rem; font-weight: 700; color: var(--teal); flex-shrink: 0;
+      transition: background .25s, border-color .25s;
+    }
+    .c-link:hover .c-icon { background: rgba(71,134,138,.10); border-color: rgba(71,134,138,.25); }
+    .c-link-label { flex: 1; }
+    .c-link-sub { font-size: .73rem; color: var(--ink-3); margin-top: 2px; display: block; }
+    .c-link-arrow { font-size: .9rem; opacity: .4; transition: transform .22s, opacity .22s; }
+    .c-link:hover .c-link-arrow { transform: translateX(3px); opacity: 1; }
+    .contact-side { padding-top: 8px; }
+    .contact-quote {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.35rem; font-style: italic;
+      color: var(--ink); line-height: 1.5; margin-bottom: 24px;
+    }
+    .contact-quote-attr { font-size: .78rem; color: var(--ink-3); }
+    .avail-pill {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 28px;
+      font-size: .72rem; font-weight: 600; letter-spacing: .04em;
+      color: var(--green-dk); background: var(--green-xlt);
+      border: 1px solid rgba(95,153,40,.2); border-radius: 20px;
+      padding: 6px 14px;
+    }
+    .avail-dot { width: 7px; height: 7px; border-radius: 50%; background: #5DB830; box-shadow: 0 0 0 3px rgba(93,184,48,.2); flex-shrink: 0; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 3px rgba(93,184,48,.2)} 50%{box-shadow:0 0 0 5px rgba(93,184,48,.1)} }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); padding: 36px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .ft-copy { font-size: .75rem; color: rgba(255,255,255,.3); }
+    .ft-links { display: flex; gap: 24px; }
+    .ft-links a { font-size: .75rem; color: rgba(255,255,255,.35); transition: color .2s; }
+    .ft-links a:hover { color: rgba(255,255,255,.7); }
+
+    /* ── FADE IN ── */
+    .fi { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .fi.on { opacity: 1; transform: none; }
+    .fi-d1 { transition-delay: .1s; }
+    .fi-d2 { transition-delay: .2s; }
+    .fi-d3 { transition-delay: .3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 44px; text-align: center; }
+      .hero-col-photo { order: -1; }
+      .hero-ctas { justify-content: center; }
+      .hero-intro { margin-left: auto; margin-right: auto; }
+      .photo-frame { max-width: 280px; margin: 0 auto; }
+      .photo-badge { left: 50%; transform: translateX(-50%); white-space: nowrap; }
+      .work-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-sidebar { position: static; flex-direction: row; flex-wrap: wrap; }
+      .about-sidebar .aside-card { flex: 1 1 200px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      #hero { padding: 88px 0 72px; }
+      .hero-name { font-size: clamp(3.2rem, 12vw, 5rem); }
+      .nav-links { display: none; }
+      .skills-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="nav-logo-dot"></span>
+      Victor Araujo
+    </a>
+    <ul class="nav-links">
+      <li><a href="#work">Trabalho</a></li>
+      <li><a href="#about">Sobre</a></li>
+      <li><a href="#contact">Contato</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Falar comigo →</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- ── Text column ── -->
+      <div class="hero-col-text fi fi-d1">
+        <h1 class="hero-name">Victor<br>Araujo</h1>
+        <div class="hero-role">
+          <span class="hero-role-main">Estrategista de Produto & UX Research</span>
+          <span class="hero-role-detail">10+ anos em fintech, govtech e edtech</span>
+        </div>
+        <div class="hero-specs">
+          <p class="hero-spec"><em>IA,</em> Produto e Estratégia.</p>
+        </div>
+        <p class="hero-intro">Dez anos projetando onde os stakes são altos — fintech, govtech, edtech. Pesquisa que vira decisão, decisão que vira produto.</p>
+        <div class="hero-ctas">
+          <a href="#work" class="btn btn-dark">Ver projetos selecionados →</a>
+          <a href="#contact" class="btn btn-outline">Entrar em contato</a>
+        </div>
+      </div>
+
+      <!-- ── Photo column ── -->
+      <div class="hero-col-photo fi fi-d2">
+        <div class="photo-frame">
+          <img src="../perfil%20comercial.png" alt="Victor Araujo" class="hero-photo">
+          <span class="photo-dot-a"></span>
+          <span class="photo-dot-b"></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WORK — CARD GRID ═══ -->
+<section id="work">
+  <div class="container">
+    <div class="work-header fi">
+      <span class="section-label">Trabalho selecionado</span>
+      <h2>Trabalho selecionado.<br>Processo visível.</h2>
+    </div>
+
+    <div class="work-grid">
+
+      <!-- 01 Sicoob -->
+      <a href="sicoob.html" class="work-card ct fi">
+        <div class="wc-inner">
+          <div class="wc-num">01</div>
+          <div class="wc-meta">Sicoob Coopera · Produto Financeiro</div>
+          <h3 class="wc-title">20+ produtos no maior cooperativismo financeiro do Brasil</h3>
+          <p class="wc-desc">Diagnóstico de maturidade NN/g nível 2 → roadmap para 4–5. Nova homepage, NPS adaptativo com branching, e-commerce de recompensas e proposta de nova gerência de UX — entregues com processo documentado.</p>
+          <div class="wc-tags">
+            <span class="wc-tag hi">UX Strategy</span>
+            <span class="wc-tag">Fintech</span>
+            <span class="wc-tag">Design Systems</span>
+            <span class="wc-tag">Data-Driven</span>
+            <span class="wc-tag">NN/g Maturity</span>
+          </div>
+        </div>
+        <div class="wc-footer">
+          <span class="wc-period">2023 – Atual</span>
+          <span class="wc-arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- 02 CJF -->
+      <a href="case-cjf.html" class="work-card cs fi fi-d1">
+        <div class="wc-inner">
+          <div class="wc-num">02</div>
+          <div class="wc-meta">Conselho da Justiça Federal · Governo Federal</div>
+          <h3 class="wc-title">90%+ de satisfação — processo de UX construído do zero no judiciário federal</h3>
+          <p class="wc-desc">Sem departamento de UX, gestão em silos, interface obsoleta. Conduzi o processo completo: 22 entrevistas, 5 testes de usabilidade, workshops, design system e protótipo aprovado ao vivo pelo Comitê Diretivo.</p>
+          <div class="wc-tags">
+            <span class="wc-tag hi">UX Research</span>
+            <span class="wc-tag">Double Diamond</span>
+            <span class="wc-tag">Design System</span>
+            <span class="wc-tag">Governo</span>
+            <span class="wc-tag">IA</span>
+          </div>
+        </div>
+        <div class="wc-footer">
+          <span class="wc-period">2021 – 2022</span>
+          <span class="wc-arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- 03 Estuda -->
+      <a href="case-estuda.html" class="work-card cg fi fi-d2">
+        <div class="wc-inner">
+          <div class="wc-num">03</div>
+          <div class="wc-meta">Estuda.com · EdTech · Lead Design</div>
+          <h3 class="wc-title">Estratégia de UX, Design OPS e 50+ capacitados — do zero em 12 meses</h3>
+          <p class="wc-desc">Ponte entre times B2B e B2C. Estratégia de UX a partir de diagnóstico, Design Chapter, Design OPS 2023 e programa de discovery — mentorando CS, Suporte, Dev e Produto.</p>
+          <div class="wc-tags">
+            <span class="wc-tag hi">Lead Design</span>
+            <span class="wc-tag">UX Strategy</span>
+            <span class="wc-tag">Design OPS</span>
+            <span class="wc-tag">EdTech</span>
+            <span class="wc-tag">Mentoring</span>
+          </div>
+        </div>
+        <div class="wc-footer">
+          <span class="wc-period">2022 – 2023</span>
+          <span class="wc-arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- 04 IA & Estratégia -->
+      <a href="case-ia.html" class="work-card ca fi fi-d3">
+        <div class="wc-inner">
+          <div class="wc-num">04</div>
+          <div class="wc-meta">IA · Estratégia · Pesquisa · Capacidades</div>
+          <h3 class="wc-title">IA no fluxo de design: do problema ao protótipo com menos fricção</h3>
+          <p class="wc-desc">LLMs (Claude, GPT-4) para síntese de pesquisa, v0 e Lovable para prototipação acelerada, frameworks NN/g, SUS e UEQ para medir maturidade — sem sacrificar rigor metodológico.</p>
+          <div class="wc-tags">
+            <span class="wc-tag hi">Claude · GPT-4 · v0</span>
+            <span class="wc-tag">NN/g Maturity</span>
+            <span class="wc-tag">Research Ops</span>
+            <span class="wc-tag">Design Strategy</span>
+          </div>
+        </div>
+        <div class="wc-footer">
+          <span class="wc-period">Prática ativa · 2024–Atual</span>
+          <span class="wc-arrow">↗</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CREDIBILIDADE ═══ -->
+<section id="credibility">
+  <div class="container">
+    <div class="cred-inner fi">
+      <span class="cred-label">Atuei em</span>
+      <div class="cred-logos">
+        <span class="cred-name">Sicoob Coopera</span>
+        <span class="cred-name">CJF — Gov. Federal</span>
+        <span class="cred-name">Estuda.com</span>
+        <span class="cred-name">UnB — MSc</span>
+        <span class="cred-name">Tera — MBA IA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+
+      <div class="about-sidebar fi">
+        <div class="aside-card card-teal">
+          <div class="aside-title">Idiomas</div>
+          <div class="lang-row"><span>Português</span><span class="lang-lv">Nativo</span></div>
+          <div class="lang-row"><span>Inglês</span><span class="lang-lv">Fluente</span></div>
+          <div class="lang-row"><span>Espanhol</span><span style="font-size:.76rem;color:var(--ink-3)">Básico</span></div>
+          <div class="lang-row"><span>Francês</span><span style="font-size:.76rem;color:var(--ink-3)">Básico</span></div>
+        </div>
+        <div class="aside-card card-sage">
+          <div class="aside-title">Backgrounds</div>
+          <div class="bg-item"><span>✍</span> UX/UI Design</div>
+          <div class="bg-item"><span>💻</span> Front-end Development</div>
+          <div class="bg-item"><span>👔</span> IT Management</div>
+          <div class="bg-item"><span>🎵</span> Arte Sonora & Tecnologia</div>
+        </div>
+      </div>
+
+      <div class="about-content fi fi-d1">
+        <div class="about-label">Sobre</div>
+        <h2>Dez anos convertendo ambiguidade<br>em sistemas funcionais.<span class="h2-sectors">fintech · govtech · edtech</span></h2>
+        <p class="about-bio">Victor Araujo. Dez anos de produto em setores onde errar custa caro — sistema financeiro cooperativo, judiciário federal, edtech em hipercrescimento. No Sicoob Coopera desde 2023, construindo capacidade de UX de dentro para fora: do diagnóstico de maturidade ao design system escalável.</p>
+        <p class="about-bio">Antes disso: processo de UX do Conselho da Justiça Federal do zero, Design Chapter na Estuda.com com 50+ colaboradores mentorados em CS, Suporte, Dev, B2B e B2C, e sete anos em agências aprendendo a comunicar, negociar e entregar sob pressão. Mestrado em Artes Visuais pela UnB — arte, tecnologia e performance.</p>
+        <p class="about-bio">Não entrego telas. Diagnostico o problema real, proponho o caminho e documento as decisões para que o time avance sem depender da minha presença constante.</p>
+
+        <div class="spec-box">
+          <div class="spec-title">Especialização</div>
+          <p>Produtos digitais com foco em <strong style="color:var(--teal)">arquitetura de informação</strong>, <strong style="color:var(--teal)">maturidade de UX (NN/g)</strong> e <strong style="color:var(--teal)">estratégia orientada por dados</strong>. Integro IA (Claude, GPT-4, v0) no fluxo de discovery e prototipação — acelerando ciclos sem sacrificar rigor metodológico.</p>
+        </div>
+
+        <div class="skills-grid">
+          <div>
+            <div class="skill-grp-title">UX & Pesquisa</div>
+            <div class="pill-wrap">
+              <span class="pill">User Research</span>
+              <span class="pill">Arquitetura de IA</span>
+              <span class="pill">Testes de Usabilidade</span>
+              <span class="pill">Journey Mapping</span>
+              <span class="pill">Análise Heurística</span>
+              <span class="pill">Heatmap · Analytics</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-grp-title">Design & Sistemas</div>
+            <div class="pill-wrap">
+              <span class="pill">Figma</span>
+              <span class="pill">Design Systems</span>
+              <span class="pill">Prototipação</span>
+              <span class="pill">Design Tokens</span>
+              <span class="pill">Visual Design</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-grp-title">Estratégia & Liderança</div>
+            <div class="pill-wrap">
+              <span class="pill">UX Maturity NN/g</span>
+              <span class="pill">Opportunity Tree</span>
+              <span class="pill">Service Design</span>
+              <span class="pill">Design OPS</span>
+              <span class="pill">Facilitation</span>
+            </div>
+          </div>
+          <div>
+            <div class="skill-grp-title">IA & Automação</div>
+            <div class="pill-wrap">
+              <span class="pill">Claude · GPT-4</span>
+              <span class="pill">v0 · Lovable</span>
+              <span class="pill">GitHub Copilot</span>
+              <span class="pill">Midjourney</span>
+              <span class="pill">Salesforce AI</span>
+              <span class="pill">HTML / CSS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-list">
+          <div class="skill-grp-title">Formação</div>
+          <div class="edu-item">
+            <span class="edu-name">MBA — Liderança & Estratégia de Produtos Digitais na Era da IA</span>
+            <span class="edu-year">Tera · 2026</span>
+          </div>
+          <div class="edu-item">
+            <span class="edu-name">Digital Product Design</span>
+            <span class="edu-year">Tera · 2025</span>
+          </div>
+          <div class="edu-item">
+            <span class="edu-name">Master Interface Design · Product Design UX/UI</span>
+            <span class="edu-year">Aela.io · 2024</span>
+          </div>
+          <div class="edu-item">
+            <span class="edu-name">Mestrado — Artes Visuais, Arte e Tecnologia</span>
+            <span class="edu-year">UnB · 2019</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="contact-label">Contato</div>
+        <h2>Vamos construir<br>algo que <em style="font-family:'DM Serif Display',serif;font-style:italic">dure.</em></h2>
+        <p class="contact-lead">Disponível para projetos onde design precisa ser mais do que entrega visual — posições sênior, consultorias estratégicas ou só uma conversa sobre o problema certo.</p>
+        <div class="contact-links">
+          <a href="mailto:victorhugoalvesaraujo@gmail.com" class="c-link">
+            <div class="c-icon">@</div>
+            <div class="c-link-label">
+              <strong>E-mail</strong>
+              <span class="c-link-sub">victorhugoalvesaraujo@gmail.com</span>
+            </div>
+            <span class="c-link-arrow">→</span>
+          </a>
+          <a href="https://linkedin.com/in/victorhugoaraujo" target="_blank" class="c-link">
+            <div class="c-icon">in</div>
+            <div class="c-link-label">
+              <strong>LinkedIn</strong>
+              <span class="c-link-sub">Victor Hugo Araujo</span>
+            </div>
+            <span class="c-link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+      <div class="contact-side fi">
+        <p class="contact-quote">"O problema raramente é o que aparece na superfície. Meu trabalho começa onde outros param de questionar."</p>
+        <p class="contact-quote-attr">Victor Araujo · UX Designer</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <span class="ft-copy">© 2026 Victor Hugo Araujo</span>
+  <div class="ft-links">
+    <a href="mailto:victorhugoalvesaraujo@gmail.com">E-mail</a>
+    <a href="https://linkedin.com/in/victorhugoaraujo" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  // ── Scroll progress bar
+  const progressBar = document.getElementById('progress');
+  const nav = document.querySelector('nav');
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = `${Math.min(100, (scrollTop / docHeight) * 100)}%`;
+    nav.classList.toggle('sc', scrollTop > 20);
+  }, { passive: true });
+
+  // ── Active nav section tracking
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-50% 0px -50% 0px' });
+  sections.forEach(s => sectionObserver.observe(s));
+
+  // ── Fade-in on scroll
+  const fiEls = document.querySelectorAll('.fi');
+  const fiObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('on'); fiObserver.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  fiEls.forEach(el => fiObserver.observe(el));
+
+</script>
+
+</body>
+</html>
