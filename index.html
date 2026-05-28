@@ -112,23 +112,29 @@
       content: ''; width: 18px; height: 1.5px;
       background: var(--green); flex-shrink: 0;
     }
+    .hero-accent-line {
+      display: block; width: 32px; height: 2px;
+      background: var(--accent); margin-bottom: 32px;
+    }
     .hero-name {
       font-family: 'DM Serif Display', Georgia, serif;
       font-size: clamp(3.8rem, 6.8vw, 7.2rem);
       font-weight: 400; line-height: .94;
       letter-spacing: -.04em; color: var(--ink);
       font-optical-sizing: auto;
-      margin-bottom: 20px;
+      margin-bottom: 32px;
     }
     .hero-role {
-      display: flex; flex-direction: column; gap: 3px;
-      margin-bottom: 38px;
+      display: flex; flex-direction: column; gap: 4px;
+      border-top: 1px solid var(--border);
+      padding-top: 22px;
+      margin-bottom: 40px;
     }
     .hero-role-main {
-      font-size: .96rem; font-weight: 700; color: var(--ink); letter-spacing: -.01em;
+      font-size: .94rem; font-weight: 600; color: var(--ink); letter-spacing: -.01em;
     }
     .hero-role-detail {
-      font-size: .82rem; color: var(--ink-3); font-weight: 400;
+      font-size: .80rem; color: var(--ink-3); font-weight: 400;
     }
     .hero-specs { margin-bottom: 32px; }
     .hero-spec {
@@ -137,11 +143,10 @@
       font-weight: 400; line-height: 1.28;
       color: var(--ink); letter-spacing: -.02em;
     }
-    .hero-spec em { font-style: italic; color: var(--teal); }
     .hero-intro {
-      font-size: .93rem; color: var(--ink-2);
-      line-height: 1.82; max-width: 430px;
-      margin-bottom: 40px;
+      font-size: .95rem; color: var(--ink-2);
+      line-height: 1.86; max-width: 430px;
+      margin-bottom: 44px;
     }
     .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn {
@@ -455,15 +460,16 @@
 
       <!-- ── Text column ── -->
       <div class="hero-col-text fi fi-d1">
+        <span class="hero-accent-line"></span>
         <h1 class="hero-name">Victor<br>Araujo</h1>
         <div class="hero-role">
           <span class="hero-role-main">Estrategista de Produto & UX Research</span>
           <span class="hero-role-detail">10+ anos em fintech, govtech e edtech</span>
         </div>
         <div class="hero-specs">
-          <p class="hero-spec"><em>IA,</em> Produto e Estratégia.</p>
+          <p class="hero-spec">IA, Produto e Estratégia</p>
         </div>
-        <p class="hero-intro">Dez anos projetando onde os stakes são altos — fintech, govtech, edtech. Pesquisa que vira decisão, decisão que vira produto.</p>
+        <p class="hero-intro">Dez anos transformando pesquisa em estratégia e estratégia em produtos que geram resultado real. Fintech, govtech e edtech: ambientes que exigem precisão e entregam valor duradouro.</p>
         <div class="hero-ctas">
           <a href="#work" class="btn btn-dark">Ver projetos selecionados →</a>
           <a href="#contact" class="btn btn-outline">Entrar em contato</a>
