@@ -70,13 +70,14 @@
     .cc-head { display: flex; align-items: center; gap: 12px; padding: 12px 32px; background: var(--ink); }
     .cc-process { padding: 10px 32px; border-bottom: 1px solid var(--border); background: var(--bg); }
     .cc-process .pflow { margin-bottom: 0; }
-    .cc-head-num { font-size: 1.1rem; font-weight: 800; letter-spacing: .1em; color: var(--accent); margin-right: 4px; flex-shrink: 0; }
+    .cc-head-num { font-size: 2.5rem; font-weight: 800; letter-spacing: -.04em; color: var(--accent); flex-shrink: 0; line-height: 1; }
     .cc-head .pf-step { background: rgba(255,255,255,.07); color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.1); }
     .cc-head .pf-step.done { background: rgba(71,134,138,.22); color: var(--teal-lt); border-color: rgba(71,134,138,.28); }
     .cc-head .pf-arr { color: rgba(255,255,255,.2); }
-    .cc-head-tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 8px; }
-    .cc-head-tags .tag { font-size: .68rem; }
-    .cc-head-tags .tag-g { font-size: .68rem; }
+    .cc-head-tags { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+    .cc-head-tags .tag { background: rgba(255,255,255,.1); color: rgba(255,255,255,.72); border: none; font-size: .68rem; padding: 4px 12px; }
+    .cc-head-tags .tag-g { background: rgba(255,255,255,.05); color: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.12); font-size: .68rem; padding: 4px 12px; }
+    .cc-title-left .pflow { margin-top: 16px; margin-bottom: 0; }
     .cc-title-row { display: grid; grid-template-columns: 3fr 2fr; border-bottom: 1px solid var(--border); }
     .cc-title-left { padding: 26px 32px; }
     .cc-title-left h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight: 400; letter-spacing: -.01em; color: var(--ink); margin-bottom: 6px; line-height: 1.22; margin-top: 0; }
@@ -347,19 +348,17 @@
       <div class="cc fi">
         <div class="cc-head">
           <span class="cc-head-num">01</span>
-        </div>
-        <div class="cc-process">
-          <div class="pflow"><span class="pf-step done">Discovery</span><span class="pf-arr">→</span><span class="pf-step done">Arquitetura</span><span class="pf-arr">→</span><span class="pf-step done">Prototipação</span><span class="pf-arr">→</span><span class="pf-step done">Teste</span><span class="pf-arr">→</span><span class="pf-step done">Entrega</span></div>
+          <div class="cc-head-tags">
+            <span class="tag">Produto · UX Strategy</span>
+            <span class="tag">Design System</span>
+            <span class="tag-g tag">Mobile · Web · 2024</span>
+          </div>
         </div>
         <div class="cc-title-row">
           <div class="cc-title-left">
             <h3>Programa de Fidelidade Coopera</h3>
-            <div class="cc-head-tags">
-              <span class="tag">Produto · UX Strategy</span>
-              <span class="tag">Design System</span>
-              <span class="tag-g tag">Mobile · Web · 2024</span>
-            </div>
             <p class="cc-client">Sicoob Coopera · UX Designer líder · Produto financeiro de engajamento</p>
+            <div class="pflow"><span class="pf-step done">Discovery</span><span class="pf-arr">→</span><span class="pf-step done">Arquitetura</span><span class="pf-arr">→</span><span class="pf-step done">Prototipação</span><span class="pf-arr">→</span><span class="pf-step done">Teste</span><span class="pf-arr">→</span><span class="pf-step done">Entrega</span></div>
           </div>
           <div class="cc-title-right">
             <div class="viz">
@@ -407,19 +406,17 @@
       <div class="cc fi fi-d1">
         <div class="cc-head">
           <span class="cc-head-num">02</span>
-        </div>
-        <div class="cc-process">
-          <div class="pflow"><span class="pf-step done">Análise de jornada</span><span class="pf-arr">→</span><span class="pf-step done">Regras de negócio</span><span class="pf-arr">→</span><span class="pf-step done">Design de integração</span><span class="pf-arr">→</span><span class="pf-step done">Prototipação</span><span class="pf-arr">→</span><span class="pf-step done">Entrega</span></div>
+          <div class="cc-head-tags">
+            <span class="tag">Integração de Produto</span>
+            <span class="tag">Jornada do Usuário</span>
+            <span class="tag-g tag">Mobile · 2024</span>
+          </div>
         </div>
         <div class="cc-title-row">
           <div class="cc-title-left">
             <h3>PIX com Pontos — Recompensa no Pagamento Instantâneo</h3>
-            <div class="cc-head-tags">
-              <span class="tag">Integração de Produto</span>
-              <span class="tag">Jornada do Usuário</span>
-              <span class="tag-g tag">Mobile · 2024</span>
-            </div>
             <p class="cc-client">Sicoob Coopera · UX Designer + time de produto · Programa de engajamento</p>
+            <div class="pflow"><span class="pf-step done">Análise de jornada</span><span class="pf-arr">→</span><span class="pf-step done">Regras de negócio</span><span class="pf-arr">→</span><span class="pf-step done">Design de integração</span><span class="pf-arr">→</span><span class="pf-step done">Prototipação</span><span class="pf-arr">→</span><span class="pf-step done">Entrega</span></div>
           </div>
           <div class="cc-title-right">
             <div class="viz">
@@ -465,19 +462,17 @@
       <div class="cc fi fi-d2">
         <div class="cc-head">
           <span class="cc-head-num">03</span>
-        </div>
-        <div class="cc-process">
-          <div class="pflow"><span class="pf-step done">Pesquisa de abandono</span><span class="pf-arr">→</span><span class="pf-step done">Arquitetura de fluxo</span><span class="pf-arr">→</span><span class="pf-step done">Simulação</span><span class="pf-arr">→</span><span class="pf-step done">Prototipação</span><span class="pf-arr">→</span><span class="pf-step done">Teste</span><span class="pf-arr">→</span><span class="pf-step done">Entrega</span></div>
+          <div class="cc-head-tags">
+            <span class="tag">Produto Financeiro</span>
+            <span class="tag">UX Research</span>
+            <span class="tag-g tag">Mobile · 2024</span>
+          </div>
         </div>
         <div class="cc-title-row">
           <div class="cc-title-left">
             <h3>Crédito & Empréstimo — Simulação que Reduz Abandono</h3>
-            <div class="cc-head-tags">
-              <span class="tag">Produto Financeiro</span>
-              <span class="tag">UX Research</span>
-              <span class="tag-g tag">Mobile · 2024</span>
-            </div>
             <p class="cc-client">Sicoob Coopera · UX Designer líder · Produto de crédito cooperativo</p>
+            <div class="pflow"><span class="pf-step done">Pesquisa de abandono</span><span class="pf-arr">→</span><span class="pf-step done">Arquitetura de fluxo</span><span class="pf-arr">→</span><span class="pf-step done">Simulação</span><span class="pf-arr">→</span><span class="pf-step done">Prototipação</span><span class="pf-arr">→</span><span class="pf-step done">Teste</span><span class="pf-arr">→</span><span class="pf-step done">Entrega</span></div>
           </div>
           <div class="cc-title-right">
             <div class="viz">
