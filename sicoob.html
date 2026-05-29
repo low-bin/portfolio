@@ -65,14 +65,27 @@
 
     /* CASE CARDS (the 3 featured) */
     .case-cards { display: flex; flex-direction: column; gap: 0; }
-    .cc { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 32px; background: var(--surface); transition: box-shadow .25s; }
-    .cc:hover { box-shadow: 0 6px 24px rgba(0,0,0,.09); }
-    .cc-vis { padding: 40px 36px; display: flex; align-items: center; position: relative; }
-    .cc-vis.v1 { background: var(--teal-lt); }
-    .cc-vis.v2 { background: #E2EDF5; }
-    .cc-vis.v3 { background: var(--green-lt); }
-    .cc-num { position: absolute; top: 16px; right: 20px; font-size: 4rem; font-weight: 800; color: rgba(71,134,138,.07); line-height: 1; user-select: none; }
-    .cc-body { padding: 40px; display: flex; flex-direction: column; justify-content: flex-start; }
+    .cc { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 28px; background: var(--surface); transition: box-shadow .25s; }
+    .cc:hover { box-shadow: 0 6px 28px rgba(0,0,0,.08); }
+    .cc-head { display: flex; align-items: center; gap: 8px; padding: 13px 32px; background: var(--ink); flex-wrap: wrap; }
+    .cc-head-num { font-size: .68rem; font-weight: 800; letter-spacing: .1em; color: var(--accent); margin-right: 4px; flex-shrink: 0; }
+    .cc-head .pf-step { background: rgba(255,255,255,.07); color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.1); }
+    .cc-head .pf-step.done { background: rgba(71,134,138,.22); color: var(--teal-lt); border-color: rgba(71,134,138,.28); }
+    .cc-head .pf-arr { color: rgba(255,255,255,.2); }
+    .cc-head-tags { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+    .cc-head-tags .tag { background: rgba(255,255,255,.1); color: rgba(255,255,255,.62); border: none; font-size: .62rem; padding: 3px 10px; }
+    .cc-head-tags .tag-g { background: rgba(255,255,255,.05); color: rgba(255,255,255,.38); border: 1px solid rgba(255,255,255,.1); font-size: .62rem; padding: 3px 10px; }
+    .cc-title-row { display: grid; grid-template-columns: 3fr 2fr; border-bottom: 1px solid var(--border); }
+    .cc-title-left { padding: 26px 32px; }
+    .cc-title-left h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight: 400; letter-spacing: -.01em; color: var(--ink); margin-bottom: 6px; line-height: 1.22; margin-top: 0; }
+    .cc-title-right { padding: 22px 26px; background: var(--accent-xlt); border-left: 1px solid var(--border-lt); display: flex; flex-direction: column; justify-content: center; }
+    .cc-body-grid { display: grid; grid-template-columns: 1fr 1.55fr; border-bottom: 1px solid var(--border); }
+    .cc-col-left { padding: 22px 28px; border-right: 1px solid var(--border); }
+    .cc-col-right { padding: 22px 28px; }
+    .cc-foot { display: grid; grid-template-columns: 1fr 1fr 1fr 1.8fr; background: var(--bg); }
+    .cc-foot-m { padding: 17px 20px; border-right: 1px solid var(--border); text-align: center; display: flex; flex-direction: column; justify-content: center; }
+    .cc-foot-m .m-val { font-size: 1.2rem; }
+    .cc-foot-r { padding: 16px 22px; }
     /* viz styles */
     .viz { background: rgba(255,255,255,.72); border: 1px solid rgba(0,0,0,.09); border-radius: 12px; padding: 20px; width: 100%; }
     .viz-title { font-size: .66rem; text-transform: uppercase; letter-spacing: .1em; color: var(--teal); font-weight: 700; margin-bottom: 14px; }
@@ -204,7 +217,12 @@
     .kv-row strong { color: var(--ink); }
     .kv-row span { color: var(--ink-2); }
     @media (max-width: 900px) {
-      .cc { grid-template-columns: 1fr; }
+      .cc-title-row { grid-template-columns: 1fr; }
+      .cc-title-right { border-left: none; border-top: 1px solid var(--border); }
+      .cc-body-grid { grid-template-columns: 1fr; }
+      .cc-col-left { border-right: none; border-bottom: 1px solid var(--border); }
+      .cc-foot { grid-template-columns: 1fr 1fr; }
+      .cc-foot-r { grid-column: span 2; }
       .strat-grid { grid-template-columns: 1fr; }
       .impact-row { grid-template-columns: 1fr 1fr; }
       .spotlight-card { grid-template-columns: 1fr; }
@@ -325,20 +343,8 @@
 
       <!-- CASE 01: Programa de Fidelidade -->
       <div class="cc fi">
-        <div class="cc-vis v1">
-          <span class="cc-num">01</span>
-          <div class="viz">
-            <div class="viz-title">Arquitetura do Sistema</div>
-            <div class="viz-grid">
-              <div class="viz-cell"><strong>3</strong>Fluxos principais</div>
-              <div class="viz-cell"><strong>7→3</strong>Etapas no resgate</div>
-              <div class="viz-cell"><strong>KPI</strong>Taxa de resgate</div>
-              <div class="viz-cell"><strong>DS</strong>Componentes próprios</div>
-            </div>
-            <div style="margin-top:12px;font-size:.71rem;color:var(--ink-3);line-height:1.65">Acúmulo · Catálogo · Resgate · Dashboard de saldo · Engajamento</div>
-          </div>
-        </div>
-        <div class="cc-body">
+        <div class="cc-head">
+          <span class="cc-head-num">01</span>
           <div class="pflow">
             <span class="pf-step done">Discovery</span><span class="pf-arr">→</span>
             <span class="pf-step done">Arquitetura</span><span class="pf-arr">→</span>
@@ -346,53 +352,63 @@
             <span class="pf-step done">Teste</span><span class="pf-arr">→</span>
             <span class="pf-step done">Entrega</span>
           </div>
-          <div class="cc-meta">
+          <div class="cc-head-tags">
             <span class="tag">Produto · UX Strategy</span>
             <span class="tag">Design System</span>
             <span class="tag-g tag">Mobile · Web · 2024</span>
           </div>
-          <h3>Programa de Fidelidade Coopera</h3>
-          <p class="cc-client">Sicoob Coopera · UX Designer líder · Produto financeiro de engajamento</p>
-          <p class="case-lbl">O problema</p>
-          <p class="case-text">Cooperados acumulavam pontos mas não resgatavam. A taxa de resgate era baixa não por falta de recompensas — o catálogo existia — mas porque o caminho até ele tinha fricção demais e o saldo de pontos era invisível no dia a dia financeiro do cooperado.</p>
-          <div class="constr">
-            <div class="constr-title">Trabalhamos dentro de</div>
-            <ul>
-              <li>Sistema de pontos legado com regras de negócio rígidas e parceiros externos</li>
-              <li>Base de cooperados com alta variação em literacia digital e familiaridade com programas de fidelidade</li>
-              <li>Calendário de releases do app condicionado ao time de engenharia</li>
-            </ul>
+        </div>
+        <div class="cc-title-row">
+          <div class="cc-title-left">
+            <h3>Programa de Fidelidade Coopera</h3>
+            <p class="cc-client">Sicoob Coopera · UX Designer líder · Produto financeiro de engajamento</p>
           </div>
-          <p class="case-lbl">Decisões-chave com raciocínio</p>
-          <div class="dec-list">
-            <div class="dec">
-              <span class="dec-n">01</span>
-              <div><strong>Catálogo antes da mecânica de acúmulo</strong><p>O incentivo só funciona se o cooperado consegue imaginar o resgate. Mostrar o "para quê" antes do "como" aumenta a motivação de acumular — o contrário é pedir esforço sem recompensa visível.</p></div>
+          <div class="cc-title-right">
+            <div class="viz">
+              <div class="viz-title">Arquitetura do Sistema</div>
+              <div class="viz-grid">
+                <div class="viz-cell"><strong>3</strong>Fluxos principais</div>
+                <div class="viz-cell"><strong>7→3</strong>Etapas no resgate</div>
+                <div class="viz-cell"><strong>KPI</strong>Taxa de resgate</div>
+                <div class="viz-cell"><strong>DS</strong>Componentes próprios</div>
+              </div>
+              <div style="margin-top:10px;font-size:.71rem;color:var(--ink-3);line-height:1.55">Acúmulo · Catálogo · Resgate · Dashboard de saldo · Engajamento</div>
             </div>
-            <div class="dec">
-              <span class="dec-n">02</span>
-              <div><strong>Saldo de pontos no extrato, não num submenu</strong><p>Pontos escondidos em configurações não mudam comportamento. A visibilidade no extrato coloca o saldo no fluxo financeiro diário — onde o cooperado já está tomando decisões.</p></div>
-            </div>
-            <div class="dec">
-              <span class="dec-n">03</span>
-              <div><strong>Resgate em 3 etapas — era 7</strong><p>Cada etapa desnecessária no resgate é um ponto de abandono. Comprimimos o fluxo sem remover confirmações obrigatórias de compliance — distinção entre fricção útil e fricção acidental.</p></div>
-            </div>
-          </div>
-          <div class="reflect">
-            <div class="reflect-title">Se fosse fazer de novo</div>
-            <p>Faria testes de usabilidade com cooperados de baixa literacia digital antes do lançamento. A mecânica de pontos pressupõe familiaridade com programas de fidelidade — mas uma parcela relevante da base nunca usou nenhum, e o onboarding do conceito estava ausente.</p>
-          </div>
-          <div class="metrics-sm">
-            <div class="m-box"><span class="m-val">3</span><span class="m-lbl">Fluxos completos entregues</span></div>
-            <div class="m-box"><span class="m-val">7→3</span><span class="m-lbl">Etapas no resgate</span></div>
-            <div class="m-box"><span class="m-val">Extrato</span><span class="m-lbl">Saldo visível no fluxo diário</span></div>
           </div>
         </div>
-      </div>
-
+        <div class="cc-body-grid">
+          <div class="cc-col-left">
+            <p class="case-lbl">O problema</p>
+            <p class="case-text">Cooperados acumulavam pontos mas não resgatavam. A taxa de resgate era baixa não por falta de recompensas — o catálogo existia — mas porque o caminho até ele tinha fricção demais e o saldo de pontos era invisível no dia a dia financeiro do cooperado.</p>
+            <div class="constr">
+              <div class="constr-title">Trabalhamos dentro de</div>
+              <ul>
+                <li>Sistema de pontos legado com regras de negócio rígidas e parceiros externos</li>
+                <li>Base de cooperados com alta variação em literacia digital e familiaridade com programas de fidelidade</li>
+                <li>Calendário de releases do app condicionado ao time de engenharia</li>
+              </ul>
+            </div>
+          </div>
+          <div class="cc-col-right">
+            <p class="case-lbl">Decisões-chave com raciocínio</p>
+            <div class="dec-list">
+              <div class="dec"><span class="dec-n">01</span><div><strong>Catálogo antes da mecânica de acúmulo</strong><p>O incentivo só funciona se o cooperado consegue imaginar o resgate. Mostrar o "para quê" antes do "como" aumenta a motivação de acumular — o contrário é pedir esforço sem recompensa visível.</p></div></div>
+              <div class="dec"><span class="dec-n">02</span><div><strong>Saldo de pontos no extrato, não num submenu</strong><p>Pontos escondidos em configurações não mudam comportamento. A visibilidade no extrato coloca o saldo no fluxo financeiro diário — onde o cooperado já está tomando decisões.</p></div></div>
+              <div class="dec"><span class="dec-n">03</span><div><strong>Resgate em 3 etapas — era 7</strong><p>Cada etapa desnecessária no resgate é um ponto de abandono. Comprimimos o fluxo sem remover confirmações obrigatórias de compliance — distinção entre fricção útil e fricção acidental.</p></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="cc-foot">
+          <div class="cc-foot-m"><span class="m-val">3</span><span class="m-lbl">Fluxos completos entregues</span></div>
+          <div class="cc-foot-m"><span class="m-val">7→3</span><span class="m-lbl">Etapas no resgate</span></div>
+          <div class="cc-foot-m"><span class="m-val">Extrato</span><span class="m-lbl">Saldo visível no fluxo diário</span></div>
+          <div class="cc-foot-r"><div class="reflect"><div class="reflect-title">Se fosse fazer de novo</div><p>Faria testes de usabilidade com cooperados de baixa literacia digital antes do lançamento. A mecânica de pontos pressupõe familiaridade com programas de fidelidade — mas uma parcela relevante da base nunca usou nenhum, e o onboarding do conceito estava ausente.</p></div></div>
+        </div>
+          </div>
       <!-- CASE 02: PIX com Pontos -->
       <div class="cc fi fi-d1">
-        <div class="cc-body">
+        <div class="cc-head">
+          <span class="cc-head-num">02</span>
           <div class="pflow">
             <span class="pf-step done">Análise de jornada</span><span class="pf-arr">→</span>
             <span class="pf-step done">Regras de negócio</span><span class="pf-arr">→</span>
@@ -400,83 +416,61 @@
             <span class="pf-step done">Prototipação</span><span class="pf-arr">→</span>
             <span class="pf-step done">Entrega</span>
           </div>
-          <div class="cc-meta">
+          <div class="cc-head-tags">
             <span class="tag">Integração de Produto</span>
             <span class="tag">Jornada do Usuário</span>
             <span class="tag-g tag">Mobile · 2024</span>
           </div>
-          <h3>PIX com Pontos — Recompensa no Pagamento Instantâneo</h3>
-          <p class="cc-client">Sicoob Coopera · UX Designer + time de produto · Programa de engajamento</p>
-          <p class="case-lbl">O problema</p>
-          <p class="case-text">O PIX representava o maior volume de transações do app, mas cooperados não associavam pagamentos instantâneos ao programa de fidelidade. A oportunidade de engajamento estava sendo desperdiçada no canal mais usado — o acúmulo acontecia, mas era invisível.</p>
-          <div class="constr">
-            <div class="constr-title">Trabalhamos dentro de</div>
-            <ul>
-              <li>Fluxo PIX existente com baixa tolerância a atrito adicional</li>
-              <li>Regras de acúmulo definidas pela área de negócios, sem flexibilidade de UX</li>
-              <li>Tela de confirmação com espaço limitado para nova informação</li>
-            </ul>
+        </div>
+        <div class="cc-title-row">
+          <div class="cc-title-left">
+            <h3>PIX com Pontos — Recompensa no Pagamento Instantâneo</h3>
+            <p class="cc-client">Sicoob Coopera · UX Designer + time de produto · Programa de engajamento</p>
           </div>
-          <p class="case-lbl">Decisões-chave com raciocínio</p>
-          <div class="dec-list">
-            <div class="dec">
-              <span class="dec-n">01</span>
-              <div><strong>Acúmulo silencioso + confirmação no comprovante</strong><p>Não interromper o fluxo de pagamento. A notificação de pontos acontece no momento de celebração natural — o comprovante de sucesso. Interromper antes disso para "avisar sobre pontos" seria adicionar atrito num fluxo que precisa de velocidade.</p></div>
+          <div class="cc-title-right">
+            <div class="viz">
+              <div class="viz-title">Pontos na Jornada PIX</div>
+              <div class="nps-seg nps-det"><strong>Revisão da transferência</strong><span>Preview dos pontos a acumular nesta transação</span></div>
+              <div class="nps-seg nps-neu"><strong>Confirmação enviada</strong><span>Acúmulo processado em segundo plano</span></div>
+              <div class="nps-seg nps-pro"><strong>Comprovante</strong><span>Pontos confirmados + novo saldo atualizado</span></div>
+              <div style="margin-top:10px;font-size:.71rem;color:var(--ink-3)">Anterior: acúmulo acontecia mas era invisível para o cooperado</div>
             </div>
-            <div class="dec">
-              <span class="dec-n">02</span>
-              <div><strong>Saldo de pontos visível antes da confirmação final</strong><p>O cooperado decide com informação completa — não descobre os pontos depois. Mostrar "você vai acumular X pontos" na etapa de revisão cria percepção de valor antes do clique de confirmação.</p></div>
-            </div>
-            <div class="dec">
-              <span class="dec-n">03</span>
-              <div><strong>Regra simplificada para a UI — não o coeficiente</strong><p>O cooperado não precisa saber a fórmula de conversão. Precisa saber "você acumula X pontos nesta transação". A complexidade da regra de negócios fica encapsulada no sistema.</p></div>
-            </div>
-          </div>
-          <div class="reflect">
-            <div class="reflect-title">Se fosse fazer de novo</div>
-            <p>A decisão de mostrar pontos apenas no comprovante foi conservadora. Testaria uma variante com visualização antecipada — antes da confirmação — para entender se o preview de pontos aumenta ou reduz a taxa de conclusão do PIX. A hipótese é que aumenta, mas ficou sem validação.</p>
-          </div>
-          <div class="metrics-sm">
-            <div class="m-box"><span class="m-val">Zero</span><span class="m-lbl">Atrito adicional no fluxo PIX</span></div>
-            <div class="m-box"><span class="m-val">3</span><span class="m-lbl">Touchpoints de pontos na jornada</span></div>
-            <div class="m-box"><span class="m-val">Automático</span><span class="m-lbl">Acúmulo sem ação do cooperado</span></div>
           </div>
         </div>
-        <div class="cc-vis v2">
-          <span class="cc-num">02</span>
-          <div class="viz">
-            <div class="viz-title">Pontos na Jornada PIX</div>
-            <div class="nps-seg nps-det">
-              <strong>Revisão da transferência</strong>
-              <span>Preview dos pontos a acumular nesta transação</span>
+        <div class="cc-body-grid">
+          <div class="cc-col-left">
+            <p class="case-lbl">O problema</p>
+            <p class="case-text">O PIX representava o maior volume de transações do app, mas cooperados não associavam pagamentos instantâneos ao programa de fidelidade. A oportunidade de engajamento estava sendo desperdiçada no canal mais usado — o acúmulo acontecia, mas era invisível.</p>
+            <div class="constr">
+              <div class="constr-title">Trabalhamos dentro de</div>
+              <ul>
+                <li>Fluxo PIX existente com baixa tolerância a atrito adicional</li>
+                <li>Regras de acúmulo definidas pela área de negócios, sem flexibilidade de UX</li>
+                <li>Tela de confirmação com espaço limitado para nova informação</li>
+              </ul>
             </div>
-            <div class="nps-seg nps-neu">
-              <strong>Confirmação enviada</strong>
-              <span>Acúmulo processado em segundo plano</span>
-            </div>
-            <div class="nps-seg nps-pro">
-              <strong>Comprovante</strong>
-              <span>Pontos confirmados + novo saldo atualizado</span>
-            </div>
-            <div style="margin-top:10px;font-size:.71rem;color:var(--ink-3)">Anterior: acúmulo acontecia mas era invisível para o cooperado</div>
           </div>
+          <div class="cc-col-right">
+            <p class="case-lbl">Decisões-chave com raciocínio</p>
+            <div class="dec-list">
+              <div class="dec"><span class="dec-n">01</span><div><strong>Acúmulo silencioso + confirmação no comprovante</strong><p>Não interromper o fluxo de pagamento. A notificação de pontos acontece no momento de celebração natural — o comprovante de sucesso. Interromper antes disso para "avisar sobre pontos" seria adicionar atrito num fluxo que precisa de velocidade.</p></div></div>
+              <div class="dec"><span class="dec-n">02</span><div><strong>Saldo de pontos visível antes da confirmação final</strong><p>O cooperado decide com informação completa — não descobre os pontos depois. Mostrar "você vai acumular X pontos" na etapa de revisão cria percepção de valor antes do clique de confirmação.</p></div></div>
+              <div class="dec"><span class="dec-n">03</span><div><strong>Regra simplificada para a UI — não o coeficiente</strong><p>O cooperado não precisa saber a fórmula de conversão. Precisa saber "você acumula X pontos nesta transação". A complexidade da regra de negócios fica encapsulada no sistema.</p></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="cc-foot">
+          <div class="cc-foot-m"><span class="m-val">Zero</span><span class="m-lbl">Atrito adicional no fluxo PIX</span></div>
+          <div class="cc-foot-m"><span class="m-val">3</span><span class="m-lbl">Touchpoints de pontos na jornada</span></div>
+          <div class="cc-foot-m"><span class="m-val">Automático</span><span class="m-lbl">Acúmulo sem ação do cooperado</span></div>
+          <div class="cc-foot-r"><div class="reflect"><div class="reflect-title">Se fosse fazer de novo</div><p>A decisão de mostrar pontos apenas no comprovante foi conservadora. Testaria uma variante com visualização antecipada — antes da confirmação — para entender se o preview de pontos aumenta ou reduz a taxa de conclusão do PIX. A hipótese é que aumenta, mas ficou sem validação.</p></div></div>
         </div>
       </div>
 
       <!-- CASE 03: Crédito & Empréstimo -->
       <div class="cc fi fi-d2">
-        <div class="cc-vis v3">
-          <span class="cc-num">03</span>
-          <div class="viz">
-            <div class="viz-title">Fluxo de Contratação</div>
-            <div class="viz-row-hdr"><span>Etapa</span><span>Antes</span><span>Depois</span></div>
-            <div class="viz-row"><span class="viz-lbl">Simulação</span><span class="viz-bad">Pós-login</span><span class="viz-good">Pré-login</span></div>
-            <div class="viz-row"><span class="viz-lbl">Comparação</span><span class="viz-bad">Sequencial</span><span class="viz-good">Side-by-side</span></div>
-            <div class="viz-row"><span class="viz-lbl">Análise de perfil</span><span class="viz-bad">Caixa preta</span><span class="viz-good">Feedback visível</span></div>
-            <div class="viz-warn" style="background:var(--accent-xlt);color:var(--accent-dk);border-color:var(--accent-lt)">Abandono concentrado na etapa de comparação de modalidades</div>
-          </div>
-        </div>
-        <div class="cc-body">
+        <div class="cc-head">
+          <span class="cc-head-num">03</span>
           <div class="pflow">
             <span class="pf-step done">Pesquisa de abandono</span><span class="pf-arr">→</span>
             <span class="pf-step done">Arquitetura de fluxo</span><span class="pf-arr">→</span>
@@ -485,47 +479,55 @@
             <span class="pf-step done">Teste</span><span class="pf-arr">→</span>
             <span class="pf-step done">Entrega</span>
           </div>
-          <div class="cc-meta">
+          <div class="cc-head-tags">
             <span class="tag">Produto Financeiro</span>
             <span class="tag">UX Research</span>
             <span class="tag-g tag">Mobile · 2024</span>
           </div>
-          <h3>Crédito & Empréstimo — Simulação que Reduz Abandono</h3>
-          <p class="cc-client">Sicoob Coopera · UX Designer líder · Produto de crédito cooperativo</p>
-          <p class="case-lbl">O problema</p>
-          <p class="case-text">Cooperados elegíveis para crédito não chegavam ao final do fluxo de contratação. A opacidade sobre aprovação e a complexidade na comparação de modalidades criavam abandono antes da proposta — o produto financeiro mais estratégico da cooperativa estava sendo perdido por UX.</p>
-          <div class="constr">
-            <div class="constr-title">Trabalhamos dentro de</div>
-            <ul>
-              <li>Análise de crédito feita por sistema legado sem resultado em tempo real</li>
-              <li>Regulação cooperativista com linguagem específica obrigatória em etapas contratuais</li>
-              <li>Perfis de cooperado muito diferentes: primeiro crédito vs. renovação recorrente</li>
-            </ul>
+        </div>
+        <div class="cc-title-row">
+          <div class="cc-title-left">
+            <h3>Crédito & Empréstimo — Simulação que Reduz Abandono</h3>
+            <p class="cc-client">Sicoob Coopera · UX Designer líder · Produto de crédito cooperativo</p>
           </div>
-          <p class="case-lbl">Decisões-chave com raciocínio</p>
-          <div class="dec-list">
-            <div class="dec">
-              <span class="dec-n">01</span>
-              <div><strong>Simulação antes do login</strong><p>Quem abandona antes de criar conta nunca vai fazer login para ver o resultado. Mostrar o valor possível antes de pedir identificação aumenta a intenção de continuar — a simulação é o argumento de conversão, não o formulário.</p></div>
-            </div>
-            <div class="dec">
-              <span class="dec-n">02</span>
-              <div><strong>Comparação side-by-side, não sequencial</strong><p>Cooperado decide por contraste, não por memória. Apresentar modalidades em sequência exige que ele lembre da primeira para comparar com a segunda — carga cognitiva desnecessária que contribuía diretamente para o abandono.</p></div>
-            </div>
-            <div class="dec">
-              <span class="dec-n">03</span>
-              <div><strong>Status de análise de perfil visível e explicado</strong><p>"Em análise" sem contexto gera abandono. Com explicação do critério e ancoragem de tempo, gera espera — o cooperado entende o processo e confia mais no resultado.</p></div>
+          <div class="cc-title-right">
+            <div class="viz">
+              <div class="viz-title">Fluxo de Contratação</div>
+              <div class="viz-row-hdr"><span>Etapa</span><span>Antes</span><span>Depois</span></div>
+              <div class="viz-row"><span class="viz-lbl">Simulação</span><span class="viz-bad">Pós-login</span><span class="viz-good">Pré-login</span></div>
+              <div class="viz-row"><span class="viz-lbl">Comparação</span><span class="viz-bad">Sequencial</span><span class="viz-good">Side-by-side</span></div>
+              <div class="viz-row"><span class="viz-lbl">Análise de perfil</span><span class="viz-bad">Caixa preta</span><span class="viz-good">Feedback visível</span></div>
+              <div class="viz-warn" style="background:var(--accent-xlt);color:var(--accent-dk);border-color:var(--accent-lt)">Abandono concentrado na etapa de comparação de modalidades</div>
             </div>
           </div>
-          <div class="reflect">
-            <div class="reflect-title">Se fosse fazer de novo</div>
-            <p>A etapa de "análise em tempo real" era na verdade polling assíncrono com UX de real-time. Faria a honestidade do processo parte do design — "isso leva até 30 segundos" converte melhor do que uma barra de progresso sem âncora de tempo. Honestidade sobre latência é parte da experiência.</p>
+        </div>
+        <div class="cc-body-grid">
+          <div class="cc-col-left">
+            <p class="case-lbl">O problema</p>
+            <p class="case-text">Cooperados elegíveis para crédito não chegavam ao final do fluxo de contratação. A opacidade sobre aprovação e a complexidade na comparação de modalidades criavam abandono antes da proposta — o produto financeiro mais estratégico da cooperativa estava sendo perdido por UX.</p>
+            <div class="constr">
+              <div class="constr-title">Trabalhamos dentro de</div>
+              <ul>
+                <li>Análise de crédito feita por sistema legado sem resultado em tempo real</li>
+                <li>Regulação cooperativista com linguagem específica obrigatória em etapas contratuais</li>
+                <li>Perfis de cooperado muito diferentes: primeiro crédito vs. renovação recorrente</li>
+              </ul>
+            </div>
           </div>
-          <div class="metrics-sm">
-            <div class="m-box"><span class="m-val">Pré-login</span><span class="m-lbl">Simulação antes da identificação</span></div>
-            <div class="m-box"><span class="m-val">Side-by-side</span><span class="m-lbl">Comparação de modalidades</span></div>
-            <div class="m-box"><span class="m-val">Visível</span><span class="m-lbl">Feedback de análise de perfil</span></div>
+          <div class="cc-col-right">
+            <p class="case-lbl">Decisões-chave com raciocínio</p>
+            <div class="dec-list">
+              <div class="dec"><span class="dec-n">01</span><div><strong>Simulação antes do login</strong><p>Quem abandona antes de criar conta nunca vai fazer login para ver o resultado. Mostrar o valor possível antes de pedir identificação aumenta a intenção de continuar — a simulação é o argumento de conversão, não o formulário.</p></div></div>
+              <div class="dec"><span class="dec-n">02</span><div><strong>Comparação side-by-side, não sequencial</strong><p>Cooperado decide por contraste, não por memória. Apresentar modalidades em sequência exige que ele lembre da primeira para comparar com a segunda — carga cognitiva desnecessária que contribuía diretamente para o abandono.</p></div></div>
+              <div class="dec"><span class="dec-n">03</span><div><strong>Status de análise de perfil visível e explicado</strong><p>"Em análise" sem contexto gera abandono. Com explicação do critério e ancoragem de tempo, gera espera — o cooperado entende o processo e confia mais no resultado.</p></div></div>
+            </div>
           </div>
+        </div>
+        <div class="cc-foot">
+          <div class="cc-foot-m"><span class="m-val">Pré-login</span><span class="m-lbl">Simulação antes da identificação</span></div>
+          <div class="cc-foot-m"><span class="m-val">Side-by-side</span><span class="m-lbl">Comparação de modalidades</span></div>
+          <div class="cc-foot-m"><span class="m-val">Visível</span><span class="m-lbl">Feedback de análise de perfil</span></div>
+          <div class="cc-foot-r"><div class="reflect"><div class="reflect-title">Se fosse fazer de novo</div><p>A etapa de "análise em tempo real" era na verdade polling assíncrono com UX de real-time. Faria a honestidade do processo parte do design — "isso leva até 30 segundos" converte melhor do que uma barra de progresso sem âncora de tempo. Honestidade sobre latência é parte da experiência.</p></div></div>
         </div>
       </div>
 
