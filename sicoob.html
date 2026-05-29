@@ -158,10 +158,58 @@
     .fi-d1 { transition-delay: .1s; }
     .fi-d2 { transition-delay: .2s; }
 
+    /* SPOTLIGHT */
+    .spotlight-card { background: var(--ink); border-radius: 20px; padding: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 44px; }
+    .sp-label { font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .spotlight-card h3 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(1.3rem, 2.2vw, 1.85rem); font-weight: 400; color: #fff; line-height: 1.22; margin-bottom: 12px; }
+    .spotlight-card > div > p { font-size: .85rem; color: rgba(255,255,255,.6); line-height: 1.7; margin-bottom: 26px; }
+    .sp-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .sp-metric { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 10px; padding: 14px; }
+    .sp-metric-val { font-size: 1.5rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 6px; }
+    .sp-metric-lbl { font-size: .7rem; color: rgba(255,255,255,.45); line-height: 1.35; }
+    .sp-steps { display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+    .sp-step { display: flex; gap: 14px; align-items: flex-start; }
+    .sp-step-num { width: 26px; min-width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: #fff; font-size: .68rem; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+    .sp-step-title { font-size: .88rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .sp-step-desc { font-size: .75rem; color: rgba(255,255,255,.5); line-height: 1.55; }
+    /* CATALOG */
+    .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: box-shadow .25s, transform .22s; }
+    .cat-card:hover { box-shadow: 0 6px 22px rgba(0,0,0,.1); transform: translateY(-2px); }
+    .cat-header { padding: 22px 20px 18px; }
+    .cat-icon { font-size: 1.35rem; margin-bottom: 10px; }
+    .cat-title { font-size: .93rem; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 4px; }
+    .cat-sub { font-size: .72rem; color: rgba(255,255,255,.55); }
+    .cat-body { padding: 16px 20px 18px; }
+    .cat-plat { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 10px; }
+    .cat-ptag { font-size: .6rem; font-weight: 700; letter-spacing: .05em; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; background: var(--bg); color: var(--ink-3); border: 1px solid var(--border); }
+    .cat-ptag.site { color: var(--accent); border-color: var(--accent-lt); background: var(--accent-xlt); }
+    .cat-ptag.app { color: var(--accent-dk); border-color: var(--accent-lt); background: var(--accent-xlt); }
+    .cat-ptag.super { color: #6840A0; border-color: #CDBAE8; background: #F0E9FA; }
+    .cat-ptag.sisbr { color: #8A4800; border-color: #F0C890; background: #FDF0E0; }
+    .cat-ptag.research { color: #2A6428; border-color: #A8D0A4; background: #EAF4E8; }
+    .cat-desc { font-size: .78rem; color: var(--ink-2); line-height: 1.6; margin-bottom: 10px; }
+    .cat-bullets { list-style: none; margin-bottom: 10px; }
+    .cat-bullets li { font-size: .74rem; color: var(--ink-2); padding: 2px 0; display: flex; gap: 7px; line-height: 1.45; }
+    .cat-bullets li::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .cat-ux { font-size: .68rem; color: var(--ink-3); padding-top: 8px; border-top: 1px solid var(--border); }
+    /* RESEARCH */
+    .research-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .research-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+    .rc-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--ink); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 14px; }
+    .rc-title { font-size: .93rem; font-weight: 700; color: var(--ink); margin-bottom: 8px; line-height: 1.35; }
+    .rc-desc { font-size: .78rem; color: var(--ink-2); line-height: 1.6; margin-bottom: 12px; }
+    .kv-list { display: flex; flex-direction: column; gap: 5px; }
+    .kv-row { background: var(--bg); border-radius: 6px; padding: 7px 10px; font-size: .73rem; }
+    .kv-row strong { color: var(--ink); }
+    .kv-row span { color: var(--ink-2); }
     @media (max-width: 900px) {
       .cc { grid-template-columns: 1fr; }
       .strat-grid { grid-template-columns: 1fr; }
       .impact-row { grid-template-columns: 1fr 1fr; }
+      .spotlight-card { grid-template-columns: 1fr; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .research-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 700px) {
       .proj-grid { grid-template-columns: 1fr 1fr; }
@@ -171,6 +219,8 @@
     }
     @media (max-width: 500px) {
       .proj-grid { grid-template-columns: 1fr; }
+      .cat-grid { grid-template-columns: 1fr; }
+      .research-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -483,38 +533,119 @@
   </div>
 </section>
 
-<!-- OTHER PROJECTS -->
+<!-- PROJETOS EM DESTAQUE -->
 <section class="case-section">
   <div class="container">
     <div class="fi" style="margin-bottom:36px">
-      <div class="sec-label">Demais entregas</div>
-      <h2>Outros projetos na Coopera</h2>
-      <p style="max-width:560px">Outros fluxos de produto financeiro projetados e entregues — do onboarding ao consórcio, do extrato ao programa de recompensas.</p>
+      <div class="sec-label">Projetos em Destaque</div>
+      <h2>Casos que definem a experiência Coopera</h2>
+      <p style="max-width:580px">Jornadas completas — do discovery ao handoff — em múltiplas plataformas.</p>
     </div>
-    <div class="proj-grid fi">
-      <div class="proj-card">
-        <div class="proj-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
-        <h4>Design System Coopera</h4>
-        <p>Biblioteca de componentes, tokens de design, tipografia Sicoob Sans e padrões de interação para toda a plataforma.</p>
-        <div class="proj-tags"><span class="tag tag-b">Design System</span><span class="tag tag-b">Tokens</span></div>
+    <div class="spotlight-card fi">
+      <div>
+        <div class="sp-label">Case Destaque · Home Coopera 2024</div>
+        <h3>Nova experiência para a página inicial do Site e App</h3>
+        <p>Research completo com método de Arquitetura da Informação, benchmarks de 7 padrões de header, hipótese validada com critério de aceite. Redesign da home orientado por encontrabilidade e conversão.</p>
+        <div class="sp-metrics">
+          <div class="sp-metric"><div class="sp-metric-val">5</div><div class="sp-metric-lbl">Recursos redesenhados: Header · Fonte · IA · Background · Busca</div></div>
+          <div class="sp-metric"><div class="sp-metric-val">7</div><div class="sp-metric-lbl">Padrões de interface benchmarkados</div></div>
+          <div class="sp-metric"><div class="sp-metric-val">2x</div><div class="sp-metric-lbl">Plataformas: Site (1480px) + App (375px)</div></div>
+          <div class="sp-metric"><div class="sp-metric-val">GWT</div><div class="sp-metric-lbl">Hipótese com Given/When/Then e KPI de encontrabilidade</div></div>
+        </div>
       </div>
-      <div class="proj-card">
-        <div class="proj-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg></div>
-        <h4>Desconto PIX</h4>
-        <p>Desconto automático em pagamentos PIX em estabelecimentos conveniados. Incentivo ao canal digital.</p>
-        <div class="proj-tags"><span class="tag tag-b">Mobile</span></div>
+      <div class="sp-steps">
+        <div class="sp-step"><div class="sp-step-num">1</div><div><div class="sp-step-title">Discovery</div><div class="sp-step-desc">Mapeamento dos motivadores: categorias desorganizadas, header desatualizado, incompatibilidade com o novo card DS e o Super App.</div></div></div>
+        <div class="sp-step"><div class="sp-step-num">2</div><div><div class="sp-step-title">Pesquisa de padrões de interface</div><div class="sp-step-desc">Classic · Magazine-style · Hero · Vertical navigation drawer · Sticky · Double menu · Hamburger. Referências e orientações por componente (Sizes, Colors, Mobile, Menu).</div></div></div>
+        <div class="sp-step"><div class="sp-step-num">3</div><div><div class="sp-step-title">Arquitetura da Informação</div><div class="sp-step-desc">Metodologia completa: Navegação → Organização → Relações → Gestão → Estratégia → Jornadas. Planilha de categorias e árvore de hierarquia.</div></div></div>
+        <div class="sp-step"><div class="sp-step-num">4</div><div><div class="sp-step-title">Validação e entrega particionada</div><div class="sp-step-desc">Validação da solução com hipótese estruturada. Entrega em partes para Site (11 seções, 29,5k px) e App (11 seções com MENU e ícones de Experiência).</div></div></div>
       </div>
-      <div class="proj-card">
-        <div class="proj-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-        <h4>Extrato / Statement</h4>
-        <p>Redesign do extrato com hierarquia por categoria, filtros avançados e exportação de comprovantes.</p>
-        <div class="proj-tags"><span class="tag tag-b">Mobile</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATÁLOGO COMPLETO -->
+<section class="case-section" style="background:var(--surface)">
+  <div class="container">
+    <div class="fi" style="margin-bottom:36px">
+      <div class="sec-label">Catálogo Completo</div>
+      <h2>Todos os projetos</h2>
+      <p style="max-width:580px">22 arquivos de design cobrindo as 4 plataformas do ecossistema Coopera.</p>
+    </div>
+    <div class="cat-grid fi">
+      <div class="cat-card"><div class="cat-header" style="background:#101D1E"><div class="cat-icon">🏠</div><div class="cat-title">Home — Coopera 3.0</div><div class="cat-sub">Bianca Sá + Victor Hugo</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span><span class="cat-ptag research">Research</span></div><p class="cat-desc">Redesign completo da página inicial com 11 seções no Site (29,5k px) e 11 seções no App. Inclui Viagens, Agro, Experiências separadas, MENU e ícones.</p><ul class="cat-bullets"><li>Site: 11 seções (Responsivo, Viagens, Agro...)</li><li>App: 11 seções (MENU, Header mínima, Ícones)</li><li>Research case com método de IA completo</li></ul><div class="cat-ux">UX: Bianca Sá + Victor Hugo</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#2D595D"><div class="cat-icon">🛒</div><div class="cat-title">Checkout</div><div class="cat-sub">Coopera Site e App</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span></div><p class="cat-desc">Experiência de checkout end-to-end: carrinho, frete, entrega, pagamento em 4 métodos, confirmação e pós-venda.</p><ul class="cat-bullets"><li>App: 14 seções (Pontos, PIX, Cartão, Pontos+Cartão)</li><li>2FA transação regular + PIX</li><li>Site: Fluxo horizontal completo (~86k px)</li><li>BottomSheets e estados de RESUMO</li></ul><div class="cat-ux">UX: Bianca Sá + Victor Hugo</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#1B3B3F"><div class="cat-icon">📦</div><div class="cat-title">Coopera 3.0</div><div class="cat-sub">9 jornadas completas</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span></div><p class="cat-desc">O projeto guarda-chuva: 9 jornadas completas cobrindo Shopping Local, Agro, Saúde, Lojas Oficiais, Produto, Checkout, Categorias, CEP e Minha Conta.</p><ul class="cat-bullets"><li>9 jornadas: Shopping, Agro, Saúde, Oficiais...</li><li>Minha Conta: Site + App</li><li>Protótipos Site/App + Moodboard</li></ul><div class="cat-ux">UX: Bianca Sá + Victor Hugo</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#101D1E"><div class="cat-icon">💳</div><div class="cat-title">Credenciamento</div><div class="cat-sub">Multi-plataforma</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span><span class="cat-ptag super">Super App</span><span class="cat-ptag sisbr">Sisbr</span></div><p class="cat-desc">Jornada de credenciamento de parceiros e cooperados em todas as plataformas. Inclui landing page com taxas (10,5% cooperados / 16% não cooperados).</p><ul class="cat-bullets"><li>Site: 10 seções (PJ/PF, Logado/Não logado)</li><li>App + Super App: PJ/PF completos</li><li>Sisbr: Credenciamento, Relatório, Parametrização</li><li>Landing Page + Moodboard</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#2D595D"><div class="cat-icon">💎</div><div class="cat-title">Compra de Pontos</div><div class="cat-sub">Minha Conta</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span></div><p class="cat-desc">Fluxo de compra de pontos na seção Minha Conta, com menu hierárquico, breadcrumbs e benchmark da jornada.</p><ul class="cat-bullets"><li>Minha Conta / Meus Pontos com breadcrumbs</li><li>Fluxo de compra + Benchmark</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#1B3B3F"><div class="cat-icon">📁</div><div class="cat-title">Collections</div><div class="cat-sub">Coleções curadas</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span></div><p class="cat-desc">Experiência de coleções curadas com filtros, estados de erro e responsivo. App com seção Collections navegável.</p><ul class="cat-bullets"><li>Site: Collection, Filtro aberto, ERROS, Responsivo</li><li>App: Collections section</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#101D1E"><div class="cat-icon">📊</div><div class="cat-title">Retrospectiva 2025</div><div class="cat-sub">Documento do time</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag research">Research</span></div><p class="cat-desc">Retrospectiva anual do time de UX: entregas, aprendizados e evolução. Documento de 53k × 32k px com export e modelo.</p><ul class="cat-bullets"><li>Retrospectiva V.1 + Export V.1</li><li>Time: Bianca Sá, Victor Hugo, Gabriel, Mika</li></ul><div class="cat-ux">UX: Bianca Sá + Victor Hugo + Gabriel + Mika</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#2D595D"><div class="cat-icon">🎁</div><div class="cat-title">Gift Cards</div><div class="cat-sub">Site · App · Super App</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span><span class="cat-ptag super">Super App</span></div><p class="cat-desc">Experiência de gift cards em três plataformas. Super App com estudo de atualização da vitrine e múltiplos estados de logado/não logado.</p><ul class="cat-bullets"><li>Site: 5 seções (Logado, Não logado, Componentes)</li><li>App: Home + Gift Cards + Componentes Navegáveis</li><li>Super App: Acesso + Gift Cards + Estudo Vitrine</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#1B3B3F"><div class="cat-icon">🏷️</div><div class="cat-title">Clube de Desconto</div><div class="cat-sub">Cupom · Cashback · Clube</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span></div><p class="cat-desc">Jornada de benefícios: cupons de desconto, cashback e clube de pontos. Filtros de cashback com categorias abertas e fechadas.</p><ul class="cat-bullets"><li>Site: Não logado, Logado, Componentes Cashback</li><li>App: Home + Clube + Componentes Navegáveis</li><li>BCK App + BCK Site + Moodboard</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#101D1E"><div class="cat-icon">🏪</div><div class="cat-title">Lojas Parceiras</div><div class="cat-sub">5 lojas reais implementadas</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span></div><p class="cat-desc">Design de 5 lojas parceiras reais: Eletroking, Plus Distribuidora, Aranãs Marketplace, Vitrola e B2 Online (~8,5k × 4,7k px cada).</p><ul class="cat-bullets"><li>5 lojas com identidade visual própria</li><li>Componente Busca+Filtro (Site/App)</li><li>Componente Seguir Loja (seguindo/não seguindo)</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#2D595D"><div class="cat-icon">🔄</div><div class="cat-title">Retirada em Loja</div><div class="cat-sub">STI-90867 / 90868</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span></div><p class="cat-desc">Jornada completa de retirada em loja e transferência de pontos. App com fluxos logado e não logado, criação de conta em 6 etapas no Site.</p><ul class="cat-bullets"><li>App: 10 seções (Login, Editar, Pagamento, Pedidos)</li><li>Site: Home, Produto, Checkout, Login + 6 steps cadastro</li><li>Componentes: CEP + Maps</li></ul><div class="cat-ux">UX: Bianca Sá + Victor Hugo</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#1B3B3F"><div class="cat-icon">🌾</div><div class="cat-title">Crédito + Agro</div><div class="cat-sub">Agro · Crédito · Digital</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span></div><p class="cat-desc">Lojas Parceiras Agro com componentes únicos (card Gado + Ranking Animais), Crédito Pré-aprovado e Crédito Digital com Face ID em dark/light.</p><ul class="cat-bullets"><li>Agro: Card Gado + Ranking Animais (únicos)</li><li>Face ID: Dark + Light themes</li><li>Crédito Digital Home/Banner</li></ul><div class="cat-ux">UX: Bianca Sá + Victor Hugo</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#101D1E"><div class="cat-icon">📱</div><div class="cat-title">Experiência de Compra no SuperApp</div><div class="cat-sub">STI-79036</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag super">Super App</span></div><p class="cat-desc">Jornada de compra completa do Coopera dentro do Super App Sicoob — do carrinho à confirmação, com todos os métodos de pagamento integrados.</p><ul class="cat-bullets"><li>Carrinho, Collections, Produto, Frete, Avaliações</li><li>Entrega + Retirada em loja</li><li>Pagamento: Pontos / Cartão / PIX / Pontos+Cartão</li><li>DARK — Revisada + Ícone no SuperApp</li></ul><div class="cat-ux">UX: Bianca Sá + Victor Hugo</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#2D595D"><div class="cat-icon">⚡</div><div class="cat-title">PIX com Pontos Coopera</div><div class="cat-sub">STI-61088</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag super">Super App</span></div><p class="cat-desc">Primeiro fluxo nativo de PIX usando pontos Coopera no Super App. Light mode, dark mode e tagueamento completo para analytics.</p><ul class="cat-bullets"><li>Pagar/Transferir em Light + Dark mode</li><li>Combine formas: Pontos + PIX</li><li>Termo de Uso, 2FA, Confirmação</li></ul><div class="cat-ux">UX: Bianca Sá + Victor Hugo</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#1B3B3F"><div class="cat-icon">🏦</div><div class="cat-title">Credenciamento Super App</div><div class="cat-sub">STI-89380</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag super">Super App</span><span class="cat-ptag sisbr">Sisbr</span></div><p class="cat-desc">Credenciamento de parceiros PJ e PF nativamente no Super App + back-office Sisbr (Gestão de Parceiro e Parametrização).</p><ul class="cat-bullets"><li>Super App: PJ/PF completos + Componentes</li><li>Tela de senha, Stepper, 2FA, LP Super App</li><li>Sisbr: Gestão de Parceiro + Parametrização</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#101D1E"><div class="cat-icon">🔵</div><div class="cat-title">Produtos Sicoob</div><div class="cat-sub">Site · App · Super App</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span><span class="cat-ptag super">Super App</span></div><p class="cat-desc">Integração de produtos Sicoob no ecossistema Coopera: resgate de pontos em crédito na fatura e em conta corrente, com navegação em carrossel e 4 abas.</p><ul class="cat-bullets"><li>App: Carrossel + 4 tabs + 2 tipos de produto</li><li>Resgate em crédito na fatura + conta corrente</li><li>Super App: Acesso + Produtos Sicoob</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#2D595D"><div class="cat-icon">💰</div><div class="cat-title">Desconto PIX</div><div class="cat-sub">Android + iOS</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag app">App</span></div><p class="cat-desc">Fluxo de desconto via PIX na compra: produto → seleção de pagamento → código PIX → app bancário → confirmação. Disponível em Android e iOS.</p><ul class="cat-bullets"><li>Produto R$4.399 → R$4.099 com PIX (-R$300)</li><li>Alternativa: 6.945 pontos</li><li>Confirmação via e-mail</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#1B3B3F"><div class="cat-icon">🖤</div><div class="cat-title">Black Friday 2025</div><div class="cat-sub">Campanha sazonal</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag site">Site</span><span class="cat-ptag app">App</span></div><p class="cat-desc">Campanha "Volte às aulas com Coopera – 46% OFF". Parceiros Casas Bahia e Reserva. Super Black Friday, Mais Vendidos, Produtos Cooperados, Para você.</p><ul class="cat-bullets"><li>Site: Banner hero + seções por categoria</li><li>App: Header com pts, pills de categoria, Viagens "Novo!"</li><li>Gift Cards integrados na campanha</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+      <div class="cat-card"><div class="cat-header" style="background:#101D1E"><div class="cat-icon">💬</div><div class="cat-title">Comunicação Cooperados</div><div class="cat-sub">WhatsApp + Super App</div></div><div class="cat-body"><div class="cat-plat"><span class="cat-ptag super">Super App</span></div><p class="cat-desc">Templates de comunicação via WhatsApp com o cooperado: mensagens de retenção, minibanner, CTAs e biblioteca completa de componentes WhatsApp.</p><ul class="cat-bullets"><li>Templates: "Quero trocar" / "Não, obrigado"</li><li>Biblioteca: Bubbles, headers, listas, polls, mídia</li><li>Ícones 12-40pt, reactions, calls</li></ul><div class="cat-ux">UX: Victor Hugo (solo)</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PESQUISA & ESTRATÉGIA -->
+<section class="case-section">
+  <div class="container">
+    <div class="fi" style="margin-bottom:36px">
+      <div class="sec-label">Pesquisa & Estratégia</div>
+      <h2>Trabalho que vai além das telas</h2>
+      <p style="max-width:540px">Research, análise competitiva e instrumentação de dados como parte do processo de design.</p>
+    </div>
+    <div class="research-grid fi">
+      <div class="research-card">
+        <div class="rc-icon">🔬</div>
+        <div class="rc-title">Case de Pesquisa — Home Coopera 2024</div>
+        <p class="rc-desc">Discovery completo para o redesign da home com método de Arquitetura da Informação, benchmarks de padrões de interface e hipótese validada com Given/When/Then.</p>
+        <div class="kv-list">
+          <div class="kv-row"><strong>Hipótese:</strong> <span>Nova home gera maior encontrabilidade e conversão</span></div>
+          <div class="kv-row"><strong>Método:</strong> <span>Arquitetura da Informação com 5 dimensões</span></div>
+          <div class="kv-row"><strong>Benchmark:</strong> <span>7 padrões de header analisados</span></div>
+          <div class="kv-row"><strong>KPI:</strong> <span>Aumento da encontrabilidade do site</span></div>
+        </div>
       </div>
-      <div class="proj-card">
-        <div class="proj-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg></div>
-        <h4>Cadastro / Onboarding</h4>
-        <p>Fluxo de integração de novos cooperados com validação progressiva e feedback contextual.</p>
-        <div class="proj-tags"><span class="tag tag-b">Mobile</span></div>
+      <div class="research-card">
+        <div class="rc-icon">⚡</div>
+        <div class="rc-title">Coopera vs. Credicitrus — Estudo de UX</div>
+        <p class="rc-desc">Análise comparativa de performance, heatmaps e arquitetura da informação entre o ShopCoopera e o marketplace da cooperativa concorrente Credicitrus.</p>
+        <div class="kv-list">
+          <div class="kv-row"><strong>LCP Mobile:</strong> <span>Coopera 7,7s vs Credicitrus 47,7s ✅</span></div>
+          <div class="kv-row"><strong>Speed Index:</strong> <span>Coopera 4,1s vs Credicitrus 29,7s ✅</span></div>
+          <div class="kv-row"><strong>TBT Desktop:</strong> <span>Coopera 130ms vs Credicitrus 1.770ms ✅</span></div>
+          <div class="kv-row"><strong>Oportunidade:</strong> <span>Beyond banking para produtos não financeiros</span></div>
+        </div>
+      </div>
+      <div class="research-card">
+        <div class="rc-icon">📋</div>
+        <div class="rc-title">Redesenho Estratégico do NPS Coopera</div>
+        <p class="rc-desc">Redesign completo do questionário de NPS com branching inteligente por score, redução de carga cognitiva e predição de churn via CES.</p>
+        <div class="kv-list">
+          <div class="kv-row"><strong>Tempo:</strong> <span>Redução de 5-7min para 2-4min (↓38%)</span></div>
+          <div class="kv-row"><strong>Insights:</strong> <span>De 2-3 para 8-12 por respondente</span></div>
+          <div class="kv-row"><strong>Taxa de resposta:</strong> <span>+35-40% estimado</span></div>
+          <div class="kv-row"><strong>Churn:</strong> <span>Predição via CES para Neutros implementada</span></div>
+        </div>
+      </div>
+      <div class="research-card">
+        <div class="rc-icon">📊</div>
+        <div class="rc-title">Card de Produtos DS v2.0</div>
+        <p class="rc-desc">16 variantes de card mapeadas cobrindo todos os cenários de produto: do card completo ao simplificado, com cashback, cupom, frete, parcelamento e avaliação.</p>
+        <div class="kv-list">
+          <div class="kv-row"><strong>Variantes:</strong> <span>16 combinações de card de produto</span></div>
+          <div class="kv-row"><strong>Jornada:</strong> <span>11 passos (Home → Detalhes → Checkout → Finalizada)</span></div>
+          <div class="kv-row"><strong>Casos:</strong> <span>Favoritos, cupom, frete, cashback, parcelas...</span></div>
+        </div>
       </div>
     </div>
   </div>
